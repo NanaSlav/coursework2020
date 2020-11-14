@@ -10,16 +10,16 @@
 <div class="w3-container gradient">
 <div class="w3-row">
     <div class="w3-container w3-card w3-round-large w3-theme-xlight w3-col l7" style="margin-top: 7vh; margin-left: 7vw; margin-right: 7vw; height: max-content; margin-bottom: 7vh; width: 90vh">
-        <form class="w3-container w3-padding-64" style="height: inherit; margin-right: 2vw;">
+        <form th:action="@{/login}" method="post" class="w3-container w3-padding-64" style="height: inherit; margin-right: 2vw;">
             <label class="w3-text-theme-dark w3-large w3-margin">Username or email</label>
-            <input type="text" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
+            <input type="text" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" name="username">
 
             <label class="w3-text-theme-dark w3-large w3-margin">Password</label>
-            <input type="password" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
+            <input type="password" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" name="password">
 
             <p class="w3-margin">In metus vulputate eu scelerisque felis imperdiet proin fermentum leo.</p>
 
-            <button class="w3-btn w3-round w3-theme-d1 w3-margin w3-padding-32" style="width: 100%;">Sign in</button>
+            <input type="submit" value="Sign in" class="w3-btn w3-round w3-theme-d1 w3-margin w3-padding-32" style="width: 100%;">
             <p class="w3-margin">Quam pellentesque nec nam aliquam sem et tortor consequat. Sit amet justo donec enim diam vulputate ut pharetra.</p>
 
         </form>
