@@ -13,6 +13,8 @@ public class Task {
 
     private String name;
 
+    private boolean isDone;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 
