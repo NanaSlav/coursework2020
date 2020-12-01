@@ -3,11 +3,9 @@ package ru.nanaslav.planner.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Account implements UserDetails {
@@ -19,6 +17,9 @@ public class Account implements UserDetails {
     private String username;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
+    private List<Project> projects;
 
     public long getId() {
         return id;
