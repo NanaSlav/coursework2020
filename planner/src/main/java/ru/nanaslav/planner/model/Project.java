@@ -1,9 +1,12 @@
 package ru.nanaslav.planner.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,4 +24,9 @@ public class Project {
     @JoinColumn(name = "creator_id")
     private Account creator;
 
+    public Project(String name, String description, Account creator) {
+        this.name = name;
+        this.description = description;
+        this.creator = creator;
+    }
 }
