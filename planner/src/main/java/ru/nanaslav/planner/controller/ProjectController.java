@@ -11,12 +11,24 @@ import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.repository.ProjectRepository;
 
+/**
+ * Controller for project
+ * Manage all project information
+ * @author NanaSlav
+ */
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
     @Autowired
     ProjectRepository projectRepository;
 
+    /**
+     * Create new project by current user
+     * @param projectName
+     * @param description
+     * @param account current user account
+     * @return view name
+     */
     @PostMapping("/add")
     public String addProject(@RequestParam String projectName,
                              @RequestParam String description,

@@ -8,6 +8,11 @@ import ru.nanaslav.planner.model.Task;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
 
+/**
+ * Controller for task
+ * Manage task information
+ * @author NanaSlav
+ */
 @Controller
 @RequestMapping("/tasks")
 public class TaskController {
@@ -17,6 +22,13 @@ public class TaskController {
     @Autowired
     TaskRepository taskRepository;
 
+    /**
+     * Create new task
+     * @param title
+     * @param description
+     * @param project_id project that contains this task
+     * @return view name
+     */
     @PostMapping("/add")
     public String addTask(@RequestParam String title,
                           @RequestParam String description,
@@ -36,6 +48,11 @@ public class TaskController {
         return "add_task";
     }
 
+    /**
+     * Change task status to done
+     * @param id task id
+     * @return view name
+     */
     @PostMapping("/{id}/done")
     public String setDone(@PathVariable long id) {
         Task task = taskRepository.findById(id).orElseThrow(IllegalStateException::new);

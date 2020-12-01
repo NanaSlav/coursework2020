@@ -5,6 +5,11 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Project entity
+ * Contains information about project
+ * @author NanaSlav
+ */
 @Entity
 @Data
 public class Project {

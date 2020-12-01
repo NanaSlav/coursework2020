@@ -8,9 +8,15 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Account entity
+ * Contains information about user account
+ * @author Nanaslav
+ */
 @Entity
 @Data
 public class Account implements UserDetails {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

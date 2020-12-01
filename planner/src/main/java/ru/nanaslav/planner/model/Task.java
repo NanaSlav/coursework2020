@@ -4,6 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Task entity
+ * Contains information about task
+ * @author NanaSlav
+ */
 @Entity
 @Data
 public class Task {

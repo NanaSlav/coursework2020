@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.repository.AccountRepository;
 
+/**
+ * Controller for account
+ * Manage all account information
+ * @author NanaSlav
+ */
 @Controller
 public class AuthenticationController {
     @Autowired
@@ -25,6 +30,13 @@ public class AuthenticationController {
     @GetMapping("/logout")
     public String logout() { return "logout_temp"; }
 
+    /**
+     * create new user
+     * @param username username should be unique
+     * @param email
+     * @param password
+     * @return redirect to main page
+     */
     @PostMapping("/registration")
     public String addUser(@RequestParam String username,
                           @RequestParam String email,
