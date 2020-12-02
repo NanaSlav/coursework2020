@@ -1,7 +1,9 @@
 package ru.nanaslav.planner.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.nanaslav.planner.model.Account;
 
 /**
  * Controller for home pages
@@ -15,7 +17,10 @@ public class HomeController {
      * @return view "home"
      */
     @GetMapping("/")
-    public String home() {
+    public String home(@AuthenticationPrincipal Account account) {
+        if (account != null) {
+            return "redirect:/home";
+        }
         return "home";
     }
 
