@@ -23,7 +23,7 @@ public class Task {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
 

@@ -44,21 +44,19 @@ public class ProjectController {
                              @AuthenticationPrincipal Account account) {
 
         Project project = new Project(projectName, description, account);
-        if (projectRepository.findByNameAndCreator(projectName, account) != null) {
-            project.setName(projectName + "#" + project.getId());
-        }
         Participant participant = new Participant(account, project, Role.CREATOR);
-        participantRepository.save(participant);
         project.addParticipant(participant);
         projectRepository.save(project);
+        participantRepository.save(participant);
+
         // TODO: add view - project list
-        return "projects";
+        return "main";
     }
 
     @GetMapping("/add")
     public String showAddProject() {
         // TODO: add view - add project
-        return "add_project";
+        return "add-project";
     }
 
     @PostMapping("/{projectId}/add-participant")

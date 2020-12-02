@@ -24,10 +24,18 @@ public class Account implements UserDetails {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "creator",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Project> projects;
 
-    @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "participant",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Participant> participants;
 
     @Override
