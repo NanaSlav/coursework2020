@@ -3,6 +3,7 @@ package ru.nanaslav.planner.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.model.Participant;
@@ -24,12 +25,20 @@ import java.util.Optional;
 public class ProjectController {
     @Autowired
     ProjectRepository projectRepository;
-
     @Autowired
     ParticipantRepository participantRepository;
-
     @Autowired
     AccountRepository accountRepository;
+
+    @GetMapping("/{projectId}")
+    public String showProjectPage(@PathVariable long projectId,
+                                  Model model) {
+        Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
+        model.addAttribute("name", project.getName());
+        model.addAttribute("description", project.getDescription());
+        model.addAttribute("tasks", project.getTasks());
+        return "project-details";
+    }
 
     /**
      * Create new project by current user
