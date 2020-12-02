@@ -12,6 +12,7 @@ import ru.nanaslav.planner.model.Role;
 import ru.nanaslav.planner.repository.AccountRepository;
 import ru.nanaslav.planner.repository.ParticipantRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
+import ru.nanaslav.planner.service.ProjectService;
 
 import java.util.Optional;
 
@@ -26,9 +27,9 @@ public class ProjectController {
     @Autowired
     ProjectRepository projectRepository;
     @Autowired
-    ParticipantRepository participantRepository;
-    @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    ProjectService projectService;
 
     @GetMapping("/{projectId}")
     public String showProjectPage(@PathVariable long projectId,
@@ -51,13 +52,7 @@ public class ProjectController {
     public String addProject(@RequestParam String projectName,
                              @RequestParam String description,
                              @AuthenticationPrincipal Account account) {
-
-        Project project = new Project(projectName, description, account);
-        Participant participant = new Participant(account, project, Role.CREATOR);
-        project.addParticipant(participant);
-        projectRepository.save(project);
-        participantRepository.save(participant);
-
+        projectService.createProject(projectName, description, account);
         // TODO: add view - project list
         return "main";
     }
@@ -71,20 +66,14 @@ public class ProjectController {
     @PostMapping("/{projectId}/add-participant")
     public String addParticipant(@PathVariable long projectId,
                                  @RequestParam String participantName) {
-        Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
         Account account = accountRepository.findByUsername(participantName);
         if (account != null) {
-            Participant participant = new Participant(account, project, Role.PARTICIPANT);
-            participantRepository.save(participant);
-            project.addParticipant(participant);
-            projectRepository.save(project);
+            projectService.addParticipant(projectId, account);
         } else {
             // TODO: return message - no user
             return "";
         }
-
         // TODO: add view - participants list
         return "";
     }
-
 }
