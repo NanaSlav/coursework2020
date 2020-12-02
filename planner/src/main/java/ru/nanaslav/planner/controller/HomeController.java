@@ -14,7 +14,7 @@ import ru.nanaslav.planner.model.Account;
 public class HomeController {
     /**
      * Main page without authentication
-     * @return view "home"
+     * @return view "home" or redirect to /home if user is authorized
      */
     @GetMapping("/")
     public String home(@AuthenticationPrincipal Account account) {

@@ -25,6 +25,9 @@ public class Project {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private List<Task> tasks;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+    private List<Participant> participants;
+
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "creator_id")
     private Account creator;
@@ -36,4 +39,8 @@ public class Project {
     }
 
     public Project() {}
+
+    public void addParticipant(Participant participant) {
+        participants.add(participant);
+    }
 }

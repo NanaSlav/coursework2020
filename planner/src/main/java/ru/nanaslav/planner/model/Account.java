@@ -27,6 +27,9 @@ public class Account implements UserDetails {
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
     private List<Project> projects;
 
+    @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
+    private List<Participant> participants;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
