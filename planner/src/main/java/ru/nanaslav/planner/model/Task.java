@@ -32,4 +32,6 @@ public class Task {
         this.description = description;
         this.project = project;
     }
+
+    public Task() {}
 }

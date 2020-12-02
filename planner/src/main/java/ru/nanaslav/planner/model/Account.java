@@ -16,8 +16,6 @@ import java.util.List;
 @Entity
 @Data
 public class Account implements UserDetails {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

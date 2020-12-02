@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/style.css">
@@ -7,28 +7,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-<div class="w3-bar gradient w3-xlarge">
-    <img src="/img/calendar.png" class="w3-bar-item" style="width: 5vw;">
-    <a class="w3-bar-item w3-button w3-text-theme-light" href="#">link1</a>
-    <a class="w3-bar-item w3-button w3-text-theme-light" href="#">link2</a>
-    <a class="w3-bar-item w3-button w3-text-theme-light w3-right" href="#">Account</a>
-</div>
+<div th:insert="common/navbar :: head"></div>
 
-<div class="w3-sidebar w3-theme w3-bar-block w3-xxlarge" style="width: min-content;">
-    <a class="w3-bar-item w3-text-theme-light" href="#" style="text-decoration: none;">
-        <i class="material-icons">home</i>
-    </a>
-    <a class="w3-bar-item w3-text-theme-light" href="#" style="text-decoration: none;">
-        <i class="material-icons">list</i>
-    </a>
-    <a class="w3-bar-item w3-text-theme-light" href="#" style="text-decoration: none;">
-        <i class="material-icons">storage</i>
-    </a>
-    <a class="w3-bar-item w3-text-theme-light w3-bottom" href="#" style="text-decoration: none;">
-        <i class="material-icons">settings</i>
-    </a>
-
-</div>
+<div th:insert="common/navbar :: side"></div>
 
 <div class="w3-container w3-row" style="margin-left: 7vw; margin-top: 2vh;">
     <div class="w3-col l7">

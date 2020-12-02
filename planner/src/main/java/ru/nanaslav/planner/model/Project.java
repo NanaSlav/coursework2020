@@ -34,4 +34,6 @@ public class Project {
         this.description = description;
         this.creator = creator;
     }
+
+    public Project() {}
 }
