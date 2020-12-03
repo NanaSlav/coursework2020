@@ -18,15 +18,14 @@
             Aliquam erat volutpat.
         </p>
     <hr>
-
-        <form class="w3-container" th:action="@{/projects/add}" method="post">
+        <form th:action="@{/projects/add}" method="post" class="w3-container">
             <label class="w3-text-theme-dark w3-xlarge">Title:</label>
-            <input class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" type="text" name="projectName">
+            <input class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme" type="text" name="projectName">
 
             <label class="w3-text-theme-dark w3-xlarge">Description: </label>
-            <textarea class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" rows="10" name="description"></textarea>
+            <textarea class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme" rows="10" name="description"></textarea>
             <hr>
-            <input type="submit" class="w3-btn w3-theme w3-round-large w3-margin w3-padding w3-xlarge" value="Create project">
+            <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Create project</button>
         </form>
 </div>
 </body>
