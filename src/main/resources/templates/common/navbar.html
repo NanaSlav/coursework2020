@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="head">
+        <div class="w3-bar gradient w3-xlarge">
+            <img src="/img/calendar.png" class="w3-bar-item" style="width: 5vw;">
+            <a class="w3-bar-item w3-button w3-text-theme-light" href="#">link1</a>
+            <a class="w3-bar-item w3-button w3-text-theme-light" href="#">link2</a>
+            <a class="w3-bar-item w3-button w3-text-theme-light w3-right" href="#">Account</a>
+        </div>
+    </div>
+
+    <div th:fragment="side">
+        <div class="w3-sidebar w3-theme w3-bar-block w3-xxlarge" style="width: min-content;">
+            <a class="w3-bar-item w3-text-theme-light" href="#" style="text-decoration: none;">
+                <i class="material-icons">home</i>
+            </a>
+            <a class="w3-bar-item w3-text-theme-light" href="#" style="text-decoration: none;">
+                <i class="material-icons">list</i>
+            </a>
+            <a class="w3-bar-item w3-text-theme-light" href="#" style="text-decoration: none;">
+                <i class="material-icons">storage</i>
+            </a>
+            <a class="w3-bar-item w3-text-theme-light w3-bottom" href="#" style="text-decoration: none;">
+                <i class="material-icons">settings</i>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
