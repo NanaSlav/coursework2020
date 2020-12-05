@@ -10,6 +10,10 @@ import ru.nanaslav.planner.repository.AccountRepository;
 import ru.nanaslav.planner.repository.ParticipantRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
 
+import javax.servlet.http.Part;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ProjectService {
     @Autowired
@@ -38,4 +42,28 @@ public class ProjectService {
         project.addParticipant(participant);
         projectRepository.save(project);
     }
+
+    public List<Project> getProjectsByAccount(Account account, boolean lazy) {
+        List<Project> projects = new ArrayList<>();
+        List<Participant> participants = participantRepository.findAllByParticipant(account);
+        if (lazy && participants.size() > 6) {
+            int count = 0;
+            for (Participant participant : participants) {
+                projects.add(participant.getProject());
+                count++;
+                if (count == 6) break;
+            }
+        } else {
+            for (Participant participant : participants) {
+                projects.add(participant.getProject());
+            }
+        }
+        return projects;
+    }
+
+    public List<Project> getProjectsByAccount(Account account) {
+        return getProjectsByAccount(account, false);
+    }
+
+
 }

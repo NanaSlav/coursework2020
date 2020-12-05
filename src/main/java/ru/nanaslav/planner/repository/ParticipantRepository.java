@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.model.Participant;
 
+import java.util.List;
+
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
-    Participant findByParticipant(Account account);
+    List<Participant> findAllByParticipant(Account participant);
 }

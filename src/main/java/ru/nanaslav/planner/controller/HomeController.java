@@ -1,9 +1,12 @@
 package ru.nanaslav.planner.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.nanaslav.planner.model.Account;
+import ru.nanaslav.planner.service.ProjectService;
 
 /**
  * Controller for home pages
@@ -12,12 +15,15 @@ import ru.nanaslav.planner.model.Account;
  */
 @Controller
 public class HomeController {
+    @Autowired
+    ProjectService projectService;
+
     /**
      * Main page without authentication
      * @return view "home" or redirect to /home if user is authorized
      */
     @GetMapping("/")
-    public String home(@AuthenticationPrincipal Account account) {
+    public String home(@AuthenticationPrincipal Account account, Model model) {
         if (account != null) {
             return "redirect:/home";
         }
@@ -25,11 +31,13 @@ public class HomeController {
     }
 
     /**
-     * Main paga for registered users
+     * Main page for registered users
      * @return view "main"
      */
     @GetMapping("/home")
-    public String mainPage() {
+    public String mainPage(@AuthenticationPrincipal Account account, Model model)
+    {
+        model.addAttribute("projects", projectService.getProjectsByAccount(account, true));
         return "main";
     }
 }

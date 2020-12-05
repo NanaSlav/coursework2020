@@ -36,15 +36,12 @@
         <div class="w3-container w3-card w3-margin">
             <h2>Projects</h2>
             <table class="w3-table w3-bordered">
-                <tr><td>Project1</td></tr>
-                <tr><td>Project2</td></tr>
-                <tr><td>Project3</td></tr>
-                <tr><td>Project4</td></tr>
-                <tr><td>Project5</td></tr>
+                <tr th:each="project : ${projects}">
+                    <td th:text="${project.getName()}"></td>
+                </tr>
                 <tr><td>...</td></tr>
             </table>
-            <a class="w3-button w3-text-theme-dark">
-
+            <a class="w3-button w3-text-theme-dark" href="/projects/add">
                 <i class="material-icons">add</i>
             </a>
         </div>

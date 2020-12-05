@@ -54,12 +54,11 @@ public class ProjectController {
                              @AuthenticationPrincipal Account account) {
         projectService.createProject(projectName, description, account);
         // TODO: add view - project list
-        return "main";
+        return "redirect:/home";
     }
 
     @GetMapping("/add")
     public String showAddProject() {
-        // TODO: add view - add project
         return "add-project";
     }
 
