@@ -42,8 +42,8 @@ public class TaskController {
         return "tasks";
     }
 
-    @GetMapping("/add")
-    public String showAddTask() {
+    @GetMapping("/add/{projectId}")
+    public String showAddTask(@PathVariable long projectId) {
         // TODO: add view - add task
         return "add_task";
     }

@@ -37,7 +37,11 @@
             <h2>Projects</h2>
             <table class="w3-table w3-bordered">
                 <tr th:each="project : ${projects}">
-                    <td th:text="${project.getName()}"></td>
+                        <td>
+                            <a th:href="@{'/projects/' + ${project.getId()}}" th:text="${project.getName()}" style="text-decoration: none">
+                        </td>
+                    </a>
+
                 </tr>
                 <tr><td>...</td></tr>
             </table>

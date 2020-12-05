@@ -35,9 +35,7 @@ public class ProjectController {
     public String showProjectPage(@PathVariable long projectId,
                                   Model model) {
         Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
-        model.addAttribute("name", project.getName());
-        model.addAttribute("description", project.getDescription());
-        model.addAttribute("tasks", project.getTasks());
+        model.addAttribute("project", project);
         return "project-details";
     }
 
@@ -52,9 +50,8 @@ public class ProjectController {
     public String addProject(@RequestParam String projectName,
                              @RequestParam String description,
                              @AuthenticationPrincipal Account account) {
-        projectService.createProject(projectName, description, account);
-        // TODO: add view - project list
-        return "redirect:/home";
+        long id = projectService.createProject(projectName, description, account);
+        return "redirect:/projects/" + id;
     }
 
     @GetMapping("/add")

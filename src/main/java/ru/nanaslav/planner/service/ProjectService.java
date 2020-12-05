@@ -25,7 +25,7 @@ public class ProjectService {
     @Autowired
     ParticipantRepository participantRepository;
 
-    public void createProject(String projectName,
+    public long createProject(String projectName,
                               String description,
                               Account account) {
         Project project = new Project(projectName, description, account);
@@ -33,6 +33,7 @@ public class ProjectService {
         project.addParticipant(participant);
         projectRepository.save(project);
         participantRepository.save(participant);
+        return project.getId();
     }
 
     public void addParticipant(long projectId, Account account) {
