@@ -63,4 +63,11 @@ public class TaskController {
         return "";
     }
 
+    @GetMapping("/task/{taskId}")
+    public String showTaskPage(@PathVariable long taskId, Model model) {
+        Task task = taskRepository.findById(taskId).orElseThrow(IllegalStateException::new);
+        model.addAttribute("task", task);
+        return "task-details";
+    }
+
 }
