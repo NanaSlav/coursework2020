@@ -39,8 +39,6 @@ public class TaskController {
         Task task = new Task(taskName, description, project);
         task.setDone(false);
         taskRepository.save(task);
-        // TODO: add view - tasks
-        // return "tasks";
         return "redirect:/projects/" + projectId;
     }
 

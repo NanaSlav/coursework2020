@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+<div th:insert="common/navbar :: head"></div>
+<div th:insert="common/navbar :: side"></div>
+
+<div class="w3-container main-small">
+    <h1 th:text="'hello, ' + ${username}" class="w3-text-theme-dark"></h1>
+    <form th:action="@{/logout}" method="post" class="w3-container">
+        <input type="submit" value="Sign Out" class="w3-btn w3-theme w3-round-large w3-large"/>
+    </form>
+</div>
+</body>
+</html>
