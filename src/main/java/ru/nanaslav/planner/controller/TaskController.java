@@ -2,6 +2,7 @@ package ru.nanaslav.planner.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
@@ -24,28 +25,30 @@ public class TaskController {
 
     /**
      * Create new task
-     * @param title
+     * @param taskName
      * @param description
-     * @param project_id project that contains this task
+     * @param projectId project that contains this task
      * @return view name
      */
     @PostMapping("/add")
-    public String addTask(@RequestParam String title,
+    public String addTask(@RequestParam String taskName,
                           @RequestParam String description,
-                          @RequestParam long project_id) {
+                          @RequestParam long projectId) {
 
-        Project project = projectRepository.findById(project_id).orElseThrow(IllegalStateException::new);
-        Task task = new Task(title, description, project);
+        Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
+        Task task = new Task(taskName, description, project);
         task.setDone(false);
         taskRepository.save(task);
         // TODO: add view - tasks
-        return "tasks";
+        // return "tasks";
+        return "redirect:/projects/" + projectId;
     }
 
     @GetMapping("/add/{projectId}")
-    public String showAddTask(@PathVariable long projectId) {
-        // TODO: add view - add task
-        return "add_task";
+    public String showAddTask(@PathVariable long projectId, Model model) {
+        Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
+        model.addAttribute("projectName", project.getName());
+        return "add-task";
     }
 
     /**
