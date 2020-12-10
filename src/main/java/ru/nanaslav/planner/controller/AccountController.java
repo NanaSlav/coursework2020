@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.repository.AccountRepository;
 import ru.nanaslav.planner.service.AccountService;
+import ru.nanaslav.planner.service.ProjectService;
 
 import java.io.IOException;
 
@@ -24,12 +25,16 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    ProjectService projectService;
+
     @GetMapping()
     public String showAccount(@AuthenticationPrincipal Account account, Model model) {
         model.addAttribute("username", account.getUsername());
         // model.addAttribute("email", account.getEmail());
         model.addAttribute("avatar", account.getAvatar());
         model.addAttribute("uploadDir", System.getProperty("user.dir") + "/src/main/resources/static/img/avatar");
+        model.addAttribute("projects", projectService.getProjectsByAccount(account, true));
         return "account";
     }
 

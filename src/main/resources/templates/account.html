@@ -23,6 +23,8 @@
             </form>
         </div>
         <div class="w3-col m7">
+            <div th:insert="common/projects :: card"></div>
+
             <form th:action="@{/account/edit}" method="post" enctype="multipart/form-data">
                 <input type="file" name="avatar" class="w3-input">
                 <input type="submit" value="add avatar" class="w3-btn w3-theme w3-round-large w3-large">
