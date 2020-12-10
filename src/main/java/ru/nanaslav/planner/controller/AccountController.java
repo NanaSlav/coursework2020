@@ -29,7 +29,7 @@ public class AccountController {
         model.addAttribute("username", account.getUsername());
         // model.addAttribute("email", account.getEmail());
         model.addAttribute("avatar", account.getAvatar());
-        model.addAttribute("uploadDir", System.getProperty("user.dir") + "/avatars/");
+        model.addAttribute("uploadDir", System.getProperty("user.dir") + "/src/main/resources/static/img/avatar");
         return "account";
     }
 

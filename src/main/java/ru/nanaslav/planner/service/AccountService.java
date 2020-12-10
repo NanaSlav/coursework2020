@@ -22,7 +22,7 @@ public class AccountService implements UserDetailsService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public static final String uploadingDir = System.getProperty("user.dir") + "/avatars/";
+    public static final String uploadingDir = System.getProperty("user.dir") + "/src/main/resources/static/img/avatar";
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
