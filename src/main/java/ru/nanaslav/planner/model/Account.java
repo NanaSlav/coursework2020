@@ -28,14 +28,20 @@ public class Account implements UserDetails {
 
     @OneToMany(
             mappedBy = "creator",
-            cascade = CascadeType.ALL,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
             orphanRemoval = true
     )
     private List<Project> projects;
 
     @OneToMany(
             mappedBy = "participant",
-            cascade = CascadeType.ALL,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
             orphanRemoval = true
     )
     private List<Participant> participants;

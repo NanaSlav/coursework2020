@@ -12,8 +12,17 @@
 
 <div class="w3-container main-small">
     <h1 th:text="'hello, ' + ${username}" class="w3-text-theme-dark"></h1>
+    <div th:if="${avatar != null}">
+        <img th:src=" '/img/' + ${avatar}" style="width: 40vw">
+    </div>
+
     <form th:action="@{/logout}" method="post" class="w3-container">
         <input type="submit" value="Sign Out" class="w3-btn w3-theme w3-round-large w3-large"/>
+    </form>
+
+    <form th:action="@{/account/edit}" method="post" enctype="multipart/form-data">
+        <input type="file" name="avatar" class="w3-input">
+        <input type="submit" value="add avatar" class="w3-btn w3-theme w3-round-large w3-large">
     </form>
 </div>
 </body>
