@@ -23,6 +23,8 @@ public class Account implements UserDetails {
     private String username;
     private String email;
     private String password;
+    private String avatar;
+
 
     @OneToMany(
             mappedBy = "creator",
