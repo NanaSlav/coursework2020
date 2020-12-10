@@ -42,3 +42,10 @@
     margin-right: 20vw;
     margin-top: 2vh;
 }
+
+.avatar {
+    object-fit: cover;
+    border-radius:50%;
+    width: 40vh;
+    height: 40vh;
+}

@@ -11,18 +11,18 @@
 <div th:insert="common/navbar :: side"></div>
 
 <div class="w3-container main-small">
-    <h1 th:text="'hello, ' + ${username}" class="w3-text-theme-dark"></h1>
-    <div class="w3-row">
-        <div class="w3-col m4">
-            <div th:if="${avatar != null}" style="width: 20vw; height: 60vh;" class="w3-container">
-                <img th:src="'img/avatar/' + ${avatar}" class="w3-image">
+    <div class="w3-row w3-margin w3-padding-32">
+        <div class="w3-col m5">
+            <div th:if="${avatar != null}" class="w3-margin">
+                <img th:src="'img/avatar/' + ${avatar}" class="avatar">
             </div>
-        </div>
-        <div class="w3-col m8">
-            <form th:action="@{/logout}" method="post" class="w3-container">
-                <input type="submit" value="Sign Out" class="w3-btn w3-theme w3-round-large w3-large"/>
+            <p th:text="${username}" class="w3-text-theme-dark w3-xlarge"></p>
+            <a href="#" class="w3-btn w3-large w3-round-large w3-padding w3-margin w3-border w3-border-theme" style="width: 80%">Edit profile</a>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out" class="w3-btn w3-round-large w3-large w3-padding w3-margin w3-border w3-border-theme" style="width: 80%"/>
             </form>
-
+        </div>
+        <div class="w3-col m7">
             <form th:action="@{/account/edit}" method="post" enctype="multipart/form-data">
                 <input type="file" name="avatar" class="w3-input">
                 <input type="submit" value="add avatar" class="w3-btn w3-theme w3-round-large w3-large">
