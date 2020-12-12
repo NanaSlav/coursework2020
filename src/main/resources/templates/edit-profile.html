@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="w3-col m7">
-            <form class="w3-container">
+            <form class="w3-container" th:action="@{/account/edit}" method="post">
                 <label class="w3-text-theme-dark w3-large w3-margin">Username:</label>
                 <input type="text" th:value="${username}" name="username" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
 

@@ -62,4 +62,25 @@ public class AccountService implements UserDetailsService {
         accountRepository.save(account);
 
     }
+
+    public boolean editAccountInfo(Account account, String username, String email, String bio) {
+        if (!account.getUsername().equals(username)) {
+            if (accountRepository.findByUsername(username) == null) {
+                account.setUsername(username);
+            } else {
+                return false;
+            }
+        }
+
+        if (!account.getEmail().equals(email)) {
+            if (accountRepository.findByEmail(email) == null) {
+                account.setEmail(email);
+            } else {
+                return false;
+            }
+        }
+        // TODO: add bio
+        accountRepository.save(account);
+        return true;
+    }
 }

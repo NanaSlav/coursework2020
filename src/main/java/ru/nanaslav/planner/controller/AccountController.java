@@ -48,8 +48,17 @@ public class AccountController {
     }
 
     @PostMapping("/edit")
-    public String accountEdit(@AuthenticationPrincipal Account account) {
-        return "redirect:/account";
+    public String accountEdit(@AuthenticationPrincipal Account account,
+                              @RequestParam String username,
+                              @RequestParam String email,
+                              @RequestParam String bio) {
+        if (accountService.editAccountInfo(account, username, email, bio)) {
+            return "redirect:/account";
+        } else {
+            // TODO: error message
+            return "redirect:/account/edit";
+        }
+
     }
 
     @PostMapping("/edit/avatar")
