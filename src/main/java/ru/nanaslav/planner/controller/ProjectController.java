@@ -6,15 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.nanaslav.planner.model.Account;
-import ru.nanaslav.planner.model.Participant;
 import ru.nanaslav.planner.model.Project;
-import ru.nanaslav.planner.model.Role;
 import ru.nanaslav.planner.repository.AccountRepository;
-import ru.nanaslav.planner.repository.ParticipantRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.service.ProjectService;
-
-import java.util.Optional;
 
 /**
  * Controller for project
@@ -36,7 +31,7 @@ public class ProjectController {
                                   Model model) {
         Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
         model.addAttribute("project", project);
-        return "project-details";
+        return "project/project-details";
     }
 
     /**
@@ -56,7 +51,7 @@ public class ProjectController {
 
     @GetMapping("/add")
     public String showAddProject() {
-        return "add-project";
+        return "project/add-project";
     }
 
     @PostMapping("/{projectId}/add-participant")

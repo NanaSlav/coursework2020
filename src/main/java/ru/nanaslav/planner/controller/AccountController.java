@@ -38,13 +38,13 @@ public class AccountController {
     @GetMapping()
     public String showAccount(@AuthenticationPrincipal Account account, Model model) {
         accountInfo(model, account);
-        return "account";
+        return "/account/account";
     }
 
     @GetMapping("/edit")
     public String showAccountEdit(@AuthenticationPrincipal Account account, Model model) {
         accountInfo(model, account);
-        return "edit-profile";
+        return "account/edit-profile";
     }
 
     @PostMapping("/edit")

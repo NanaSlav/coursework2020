@@ -46,7 +46,7 @@ public class TaskController {
     public String showAddTask(@PathVariable long projectId, Model model) {
         Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
         model.addAttribute("projectName", project.getName());
-        return "add-task";
+        return "task/add-task";
     }
 
     /**
@@ -65,7 +65,7 @@ public class TaskController {
     public String showTaskPage(@PathVariable long taskId, Model model) {
         Task task = taskRepository.findById(taskId).orElseThrow(IllegalStateException::new);
         model.addAttribute("task", task);
-        return "task-details";
+        return "task/task-details";
     }
 
 }
