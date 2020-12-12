@@ -68,4 +68,11 @@ public class AccountController {
         return "redirect:/account/edit";
     }
 
+    @PostMapping("/edit/password")
+    public String changePassword(@AuthenticationPrincipal Account account,
+                                 @RequestParam String currentPassword,
+                                 @RequestParam String newPassword) {
+        accountService.changePassword(account, currentPassword, newPassword);
+        return "redirect:/account";
+    }
 }

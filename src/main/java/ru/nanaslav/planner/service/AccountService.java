@@ -83,4 +83,14 @@ public class AccountService implements UserDetailsService {
         accountRepository.save(account);
         return true;
     }
+
+    public boolean changePassword(Account account, String currentPassword, String newPassword) {
+        if (bCryptPasswordEncoder.matches(currentPassword, account.getPassword())) {
+            account.setPassword(bCryptPasswordEncoder.encode(newPassword));
+        } else {
+            return false;
+        }
+        accountRepository.save(account);
+        return true;
+    }
 }
