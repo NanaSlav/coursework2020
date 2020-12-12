@@ -33,7 +33,7 @@ public class AccountController {
         model.addAttribute("username", account.getUsername());
         // model.addAttribute("email", account.getEmail());
         model.addAttribute("avatar", account.getAvatar());
-        model.addAttribute("uploadDir", System.getProperty("user.dir") + "/src/main/resources/static/img/avatar");
+        // model.addAttribute("uploadDir", System.getProperty("user.dir") + "/avatars");
         model.addAttribute("projects", projectService.getProjectsByAccount(account, true));
         return "account";
     }

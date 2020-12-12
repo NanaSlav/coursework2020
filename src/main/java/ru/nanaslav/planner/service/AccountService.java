@@ -1,6 +1,7 @@
 package ru.nanaslav.planner.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,7 +23,9 @@ public class AccountService implements UserDetailsService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public static final String uploadingDir = System.getProperty("user.dir") + "/src/main/resources/static/img/avatar";
+    @Value("${upload.path}")
+    String uploadPath;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -48,12 +51,12 @@ public class AccountService implements UserDetailsService {
                           MultipartFile avatar) throws IOException {
         String filename = "";
         if (avatar != null) {
-            File uploadDir = new File(uploadingDir);
+            File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             filename = UUID.randomUUID().toString() + avatar.getOriginalFilename();
-            avatar.transferTo(new File(uploadingDir + "/" + filename));
+            avatar.transferTo(new File(uploadPath + "/" + filename));
         }
         account.setAvatar(filename);
         accountRepository.save(account);
