@@ -28,21 +28,35 @@ public class AccountController {
     @Autowired
     ProjectService projectService;
 
+    private void accountInfo(Model model, Account account) {
+        model.addAttribute("username", account.getUsername());
+        model.addAttribute("email", account.getEmail());
+        model.addAttribute("avatar", account.getAvatar());
+        model.addAttribute("projects", projectService.getProjectsByAccount(account, true));
+    }
+
     @GetMapping()
     public String showAccount(@AuthenticationPrincipal Account account, Model model) {
-        model.addAttribute("username", account.getUsername());
-        // model.addAttribute("email", account.getEmail());
-        model.addAttribute("avatar", account.getAvatar());
-        // model.addAttribute("uploadDir", System.getProperty("user.dir") + "/avatars");
-        model.addAttribute("projects", projectService.getProjectsByAccount(account, true));
+        accountInfo(model, account);
         return "account";
     }
 
+    @GetMapping("/edit")
+    public String showAccountEdit(@AuthenticationPrincipal Account account, Model model) {
+        accountInfo(model, account);
+        return "edit-profile";
+    }
+
     @PostMapping("/edit")
-    public String accountEdit(@RequestParam MultipartFile avatar,
-                              @AuthenticationPrincipal Account account) throws IOException {
-        accountService.setAvatar(account, avatar);
+    public String accountEdit(@AuthenticationPrincipal Account account) {
         return "redirect:/account";
+    }
+
+    @PostMapping("/edit/avatar")
+    public String editAvatar(@AuthenticationPrincipal Account account,
+                             @RequestParam MultipartFile avatar) throws IOException {
+        accountService.setAvatar(account, avatar);
+        return "redirect:/account/edit";
     }
 
 }

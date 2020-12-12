@@ -17,7 +17,7 @@
                 <img th:src="'/avatar/' + ${avatar}" class="avatar">
             </div>
             <p th:text="${username}" class="w3-text-theme-dark w3-xlarge"></p>
-            <a href="#" class="w3-btn w3-large w3-round-large w3-padding w3-margin w3-border w3-border-theme" style="width: 80%">Edit profile</a>
+            <a th:href="@{/account/edit}" class="w3-btn w3-large w3-round-large w3-padding w3-margin w3-border w3-border-theme" style="width: 80%">Edit profile</a>
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Sign Out" class="w3-btn w3-round-large w3-large w3-padding w3-margin w3-border w3-border-theme" style="width: 80%"/>
             </form>
