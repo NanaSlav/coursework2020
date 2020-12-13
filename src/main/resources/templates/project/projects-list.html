@@ -12,17 +12,13 @@
 
 <div class="w3-container main-small">
     <div class="w3-display-container">
-        <h1 class="w3-text-theme-dark" th:text="${project.getName()}"></h1>
-        <p class="w3-text-theme-dark w3-large" th:text="${project.getDescription()}"></p>
-        <a th:href="@{'/tasks/add/' + ${project.getId()}}" class="w3-btn w3-theme w3-large w3-round-large w3-display-right">Create new task</a>
+        <h1 class="w3-text-theme-dark">Projects</h1>
+        <a th:href="@{'/projects/add/'}" class="w3-btn w3-theme w3-large w3-round-large w3-display-right">Create new project</a>
     </div>
-
     <hr>
-    <div th:each="task : ${project.getTasks()}">
-        <div th:if="${!task.isDone()}">
-            <a th:href="@{'/tasks/task/' + ${task.getId()} }" style="text-decoration: none">
-                <div th:text="${task.getName()}"></div>
-            </a>
+    <div th:each="project : ${projects}">
+        <div class="w3-container">
+            <a th:href="@{'/projects/' + ${project.getId()}}" th:text="${project.getName()}" class="w3-text-theme-dark w3-large" style="text-decoration: none;"></a>
         </div>
     </div>
 </div>
