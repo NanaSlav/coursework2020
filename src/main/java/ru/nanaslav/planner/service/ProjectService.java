@@ -12,6 +12,7 @@ import ru.nanaslav.planner.repository.ProjectRepository;
 
 import javax.servlet.http.Part;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -66,5 +67,19 @@ public class ProjectService {
         return getProjectsByAccount(account, false);
     }
 
+    public List<Project> search(String q) {
+        LinkedList<Project> projects = new LinkedList<>();
+        List<Project> allProjects = projectRepository.findAll();
+        for (Project project : allProjects) {
+            if (project.getName().contains(q)) {
+                projects.addFirst(project);
+            } else {
+                if (project.getDescription().contains(q)) {
+                    projects.addLast(project);
+                }
+            }
+        }
+        return projects;
+    }
 
 }
