@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="delete">
+    <div id="delete-modal" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-display-middle w3-animate-opacity w3-padding-32" style="max-width: 20vw;">
+            <h2 class="w3-text-theme-dark w3-margin">Are you sure?</h2>
+            <br>
+            <form th:action="@{'/tasks/delete/' + ${task.getId()}}" method="post" class="w3-display-container w3-margin w3-padding">
+                <button  class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin w3-display-left" type="submit">OK</button>
+                <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin w3-display-right"
+                                onclick="document.getElementById('delete-modal').style.display='none'">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

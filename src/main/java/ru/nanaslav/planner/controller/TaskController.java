@@ -76,4 +76,9 @@ public class TaskController {
         return "task/task-details";
     }
 
+    @PostMapping("/delete/{taskId}")
+    public String deleteTask(@PathVariable long taskId) {
+        taskRepository.deleteById(taskId);
+        return "redirect:/tasks/";
+    }
 }
