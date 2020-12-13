@@ -25,10 +25,10 @@
         </p>
 
         <h2 class="w3-text-theme-dark w3-xxlarge">Tasks</h2>
-        <ul class="w3-ul w3-xlarge">
-            <li>Task1</li>
-            <li>Task2</li>
-            <li>Task3</li>
+        <ul th:each="task : ${tasks}" class="w3-ul w3-xlarge">
+            <a th:href="@{'/tasks/task/' + ${task.getId()}}" style="text-decoration: none">
+                <li th:text="${task.getName()}"></li>
+            </a>
         </ul>
     </div>
 

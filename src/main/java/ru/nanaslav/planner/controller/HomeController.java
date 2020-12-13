@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.service.ProjectService;
+import ru.nanaslav.planner.service.TaskService;
 
 /**
  * Controller for home pages
@@ -17,6 +18,8 @@ import ru.nanaslav.planner.service.ProjectService;
 public class HomeController {
     @Autowired
     ProjectService projectService;
+    @Autowired
+    TaskService taskService;
 
     /**
      * Main page without authentication
@@ -38,6 +41,7 @@ public class HomeController {
     public String mainPage(@AuthenticationPrincipal Account account, Model model)
     {
         model.addAttribute("projects", projectService.getProjectsByAccount(account, true));
+        model.addAttribute("tasks", taskService.getTasksByAccount(account));
         return "main";
     }
 }

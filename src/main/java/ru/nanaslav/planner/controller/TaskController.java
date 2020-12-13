@@ -8,6 +8,7 @@ import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
+import ru.nanaslav.planner.service.TaskService;
 
 /**
  * Controller for task
@@ -23,6 +24,9 @@ public class TaskController {
     @Autowired
     TaskRepository taskRepository;
 
+    @Autowired
+    TaskService taskService;
+
     /**
      * Create new task
      * @param taskName
@@ -35,10 +39,7 @@ public class TaskController {
                           @RequestParam String description,
                           @RequestParam long projectId) {
 
-        Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
-        Task task = new Task(taskName, description, project);
-        task.setDone(false);
-        taskRepository.save(task);
+        taskService.createTask(taskName, description, projectId);
         return "redirect:/projects/" + projectId;
     }
 
@@ -56,9 +57,7 @@ public class TaskController {
      */
     @PostMapping("/{id}/done")
     public String setDone(@PathVariable long id) {
-        Task task = taskRepository.findById(id).orElseThrow(IllegalStateException::new);
-        task.setDone(true);
-        taskRepository.save(task);
+        taskService.setDone(id);
         return "redirect:/tasks/task/" + id;
     }
 
