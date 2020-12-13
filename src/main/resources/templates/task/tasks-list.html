@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+<div th:insert="common/navbar :: head"></div>
+<div th:insert="common/navbar :: side"></div>
+
+<div class="w3-container main-small">
+    <div class="w3-display-container">
+        <h1 class="w3-text-theme-dark">Tasks</h1>
+    </div>
+    <hr>
+    <div th:each="task : ${tasks}">
+        <div class="w3-container">
+            <a th:href="@{'/tasks/task/' + ${task.getId()}}" th:text="${task.getName()}" class="w3-text-theme-dark w3-large" style="text-decoration: none;"></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

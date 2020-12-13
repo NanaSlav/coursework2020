@@ -1,9 +1,11 @@
 package ru.nanaslav.planner.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
 import ru.nanaslav.planner.repository.ProjectRepository;
@@ -26,6 +28,12 @@ public class TaskController {
 
     @Autowired
     TaskService taskService;
+
+    @GetMapping("/")
+    public String showTasks(@AuthenticationPrincipal Account account, Model model) {
+        model.addAttribute("tasks", taskService.getTasksByAccount(account));
+        return "task/tasks-list";
+    }
 
     /**
      * Create new task
