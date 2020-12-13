@@ -43,6 +43,7 @@ public class AccountService implements UserDetailsService {
         account.setUsername(username);
         account.setEmail(email);
         account.setPassword(bCryptPasswordEncoder.encode(password));
+        account.setBio("My name is " + username);
         accountRepository.save(account);
         return account;
     }
@@ -79,7 +80,7 @@ public class AccountService implements UserDetailsService {
                 return false;
             }
         }
-        // TODO: add bio
+        account.setBio(bio);
         accountRepository.save(account);
         return true;
     }

@@ -33,6 +33,7 @@ public class AccountController {
         model.addAttribute("email", account.getEmail());
         model.addAttribute("avatar", account.getAvatar());
         model.addAttribute("projects", projectService.getProjectsByAccount(account, true));
+        model.addAttribute("bio", account.getBio());
     }
 
     @GetMapping()

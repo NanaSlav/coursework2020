@@ -25,6 +25,9 @@ public class Account implements UserDetails {
     private String password;
     private String avatar;
 
+    @Column(columnDefinition = "TEXT")
+    private String bio;
+
 
     @OneToMany(
             mappedBy = "creator",

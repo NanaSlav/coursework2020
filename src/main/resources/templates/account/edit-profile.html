@@ -31,7 +31,7 @@
                 <input type="text" th:value="${email}" name="email" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
 
                 <label class="w3-text-theme-dark w3-large w3-margin">Bio:</label>
-                <textarea class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme" rows="10" name="bio">There wil be bio</textarea>
+                <textarea rows="10" name="bio" th:text="${bio}" class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme"></textarea>
 
                 <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Save changes</button>
             </form>
