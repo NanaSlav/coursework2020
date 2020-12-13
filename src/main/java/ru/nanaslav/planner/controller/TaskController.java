@@ -58,7 +58,8 @@ public class TaskController {
     public String setDone(@PathVariable long id) {
         Task task = taskRepository.findById(id).orElseThrow(IllegalStateException::new);
         task.setDone(true);
-        return "";
+        taskRepository.save(task);
+        return "redirect:/tasks/task/" + id;
     }
 
     @GetMapping("/task/{taskId}")

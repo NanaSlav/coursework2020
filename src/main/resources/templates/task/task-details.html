@@ -11,8 +11,19 @@
 <div th:insert="common/navbar :: side"></div>
 
 <div class="w3-container main-small">
-    <h1 class="w3-text-theme-dark" th:text="${task.getName()}"></h1>
-    <p class="w3-text-theme-dark w3-large" th:text="${task.getProject().getName()}"></p>
+    <div class="w3-display-container">
+        <h1 class="w3-text-theme-dark" th:text="${task.getName()}"></h1>
+        <a th:href="@{'/projects/' + ${task.getProject().getId()}}" th:text="${task.getProject().getName()}" class="w3-text-theme-dark w3-large" style="text-decoration: none"></a>
+        <div th:if="${!task.isDone()}" class="w3-display-right">
+            <form th:action="@{'/tasks/' + ${task.getId()} + '/done'}" method="post">
+                <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Set done</button>
+            </form>
+        </div>
+        <div th:if="${task.isDone()}" class="w3-display-right">
+            <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" disabled>Done</button>
+        </div>
+
+    </div>
     <hr>
     <div class="w3-text-theme-dark w3-large" th:text="${task.getDescription()}"></div>
 </div>

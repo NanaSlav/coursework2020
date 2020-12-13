@@ -16,7 +16,11 @@
     <hr>
     <a th:href="@{'/tasks/add/' + ${project.getId()}}" class="w3-btn w3-theme w3-large w3-round-large">Create new task</a>
     <div th:each="task : ${project.getTasks()}">
-        <div th:text="${task.getName()}"></div>
+        <div th:if="${!task.isDone()}">
+            <a th:href="@{'/tasks/task/' + ${task.getId()} }" style="text-decoration: none">
+                <div th:text="${task.getName()}"></div>
+            </a>
+        </div>
     </div>
 </div>
 </body>
