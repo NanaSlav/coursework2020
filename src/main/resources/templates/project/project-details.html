@@ -9,6 +9,7 @@
 <body>
 <div th:insert="common/navbar :: head"></div>
 <div th:insert="common/navbar :: side"></div>
+<div th:insert="common/delete-modal :: delete(path='/projects/delete/' + ${project.getId()})"></div>
 
 <div class="w3-container main-small">
     <div class="w3-display-container">
@@ -20,6 +21,8 @@
         </div>
     </div>
 
+    <button  onclick="document.getElementById('delete-modal').style.display='block'"
+             class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin">Delete project</button>
     <hr>
     <div th:each="task : ${project.getTasks()}">
         <div th:if="${!task.isDone()}">

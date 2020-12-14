@@ -102,4 +102,13 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
+    public boolean delete(long id) {
+        if (projectRepository.findById(id).isPresent()) {
+            projectRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
