@@ -15,15 +15,18 @@
     <div class="w3-display-container">
         <h1 class="w3-text-theme-dark" th:text="${task.getName()}"></h1>
         <a th:href="@{'/projects/' + ${task.getProject().getId()}}" th:text="${task.getProject().getName()}" class="w3-text-theme-dark w3-large" style="text-decoration: none"></a>
-        <div th:if="${!task.isDone()}" class="w3-display-right">
-            <form th:action="@{'/tasks/' + ${task.getId()} + '/done'}" method="post">
-                <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Set done</button>
-            </form>
+        <div class="w3-display-right">
+            <div th:if="${!task.isDone()}" style="display: inline-block;">
+                <form th:action="@{'/tasks/' + ${task.getId()} + '/done'}" method="post">
+                    <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Set done</button>
+                    <a th:href="@{'/tasks/edit/' + ${task.getId()}}"  class="w3-btn w3-theme w3-large w3-round-large" style="display: inline-block">Edit</a>
+                </form>
+            </div>
+            <div th:if="${task.isDone()}" style="display: inline-block">
+                <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" disabled>Done</button>
+                <button class="w3-btn w3-theme w3-large w3-round-large" disabled style="display: inline-block">Edit</button>
+            </div>
         </div>
-        <div th:if="${task.isDone()}" class="w3-display-right">
-            <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" disabled>Done</button>
-        </div>
-
     </div>
     <hr>
     <div class="w3-text-theme-dark w3-large" th:text="${task.getDescription()}"></div>

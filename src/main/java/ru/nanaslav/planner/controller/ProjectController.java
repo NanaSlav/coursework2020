@@ -77,4 +77,21 @@ public class ProjectController {
         // TODO: add view - participants list
         return "";
     }
+
+    @GetMapping("/edit/{projectId}")
+    public String showEditForm(@PathVariable long projectId, Model model) {
+        Project project = projectService.getProjectById(projectId);
+        model.addAttribute("name", project.getName());
+        model.addAttribute("description", project.getDescription());
+        model.addAttribute("id", project.getId());
+        return "project/edit-project";
+    }
+
+    @PostMapping("/edit/{projectId}")
+    public String editProject(@PathVariable long projectId,
+                              @RequestParam String name,
+                              @RequestParam String description) {
+        projectService.editProject(projectId, name, description);
+        return "redirect:/projects/" + projectId;
+    }
 }

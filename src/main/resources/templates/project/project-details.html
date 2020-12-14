@@ -14,7 +14,10 @@
     <div class="w3-display-container">
         <h1 class="w3-text-theme-dark" th:text="${project.getName()}"></h1>
         <p class="w3-text-theme-dark w3-large" th:text="${project.getDescription()}"></p>
-        <a th:href="@{'/tasks/add/' + ${project.getId()}}" class="w3-btn w3-theme w3-large w3-round-large w3-display-right">Create new task</a>
+        <div class="w3-display-right">
+            <a th:href="@{'/tasks/add/' + ${project.getId()}}" class="w3-btn w3-theme w3-large w3-round-large" style="display: inline-block">Create new task</a>
+            <a th:href="@{'/projects/edit/' + ${project.getId()}}" class="w3-btn w3-theme w3-large w3-round-large" style="display: inline-block">Edit</a>
+        </div>
     </div>
 
     <hr>

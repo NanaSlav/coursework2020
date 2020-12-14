@@ -86,4 +86,11 @@ public class ProjectService {
         return projectRepository.findById(id).orElseThrow(IllegalStateException::new);
     }
 
+    public void editProject(long id, String name, String description) {
+        Project project = projectRepository.findById(id).orElseThrow(IllegalStateException::new);
+        project.setName(name);
+        project.setDescription(description);
+        projectRepository.save(project);
+    }
+
 }
