@@ -78,4 +78,22 @@ public class TaskController {
         taskService.delete(taskId);
         return "redirect:/tasks/";
     }
+
+    @GetMapping("/edit/{taskId}")
+    public String showEditForm(@PathVariable long taskId, Model model) {
+        Task task = taskService.getTaskById(taskId);
+        model.addAttribute("taskName", task.getName());
+        model.addAttribute("taskDescription", task.getDescription());
+        model.addAttribute("projectName", task.getProject().getName());
+        model.addAttribute("projectId", task.getProject().getId());
+        return "task/edit-task";
+    }
+
+    @PostMapping("/edit/{taskId}")
+    public String editTask(@PathVariable long taskId,
+                           @RequestParam String name,
+                           @RequestParam String description) {
+        taskService.editTask(taskId, name, description);
+        return "redirect:/tasks/task/" + taskId;
+    }
 }

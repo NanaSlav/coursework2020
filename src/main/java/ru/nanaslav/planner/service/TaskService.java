@@ -59,4 +59,12 @@ public class TaskService {
             return false;
         }
     }
+
+    public void editTask(long id, String name, String description) {
+        Task task = taskRepository.findById(id).orElseThrow(IllegalStateException::new);
+        task.setName(name);
+        task.setDescription(description);
+        taskRepository.save(task);
+
+    }
 }
