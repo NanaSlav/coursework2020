@@ -10,6 +10,7 @@ import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
+import ru.nanaslav.planner.service.ProjectService;
 import ru.nanaslav.planner.service.TaskService;
 
 /**
@@ -21,13 +22,9 @@ import ru.nanaslav.planner.service.TaskService;
 @RequestMapping("/tasks")
 public class TaskController {
     @Autowired
-    ProjectRepository projectRepository;
-
-    @Autowired
-    TaskRepository taskRepository;
-
-    @Autowired
     TaskService taskService;
+    @Autowired
+    ProjectService projectService;
 
     @GetMapping("/")
     public String showTasks(@AuthenticationPrincipal Account account, Model model) {
@@ -53,7 +50,7 @@ public class TaskController {
 
     @GetMapping("/add/{projectId}")
     public String showAddTask(@PathVariable long projectId, Model model) {
-        Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
+        Project project = projectService.getProjectById(projectId);
         model.addAttribute("projectName", project.getName());
         return "task/add-task";
     }
@@ -71,14 +68,14 @@ public class TaskController {
 
     @GetMapping("/task/{taskId}")
     public String showTaskPage(@PathVariable long taskId, Model model) {
-        Task task = taskRepository.findById(taskId).orElseThrow(IllegalStateException::new);
+        Task task = taskService.getTaskById(taskId);
         model.addAttribute("task", task);
         return "task/task-details";
     }
 
     @PostMapping("/delete/{taskId}")
     public String deleteTask(@PathVariable long taskId) {
-        taskRepository.deleteById(taskId);
+        taskService.delete(taskId);
         return "redirect:/tasks/";
     }
 }

@@ -20,9 +20,6 @@ import java.io.IOException;
 @RequestMapping("/account")
 public class AccountController {
     @Autowired
-    AccountRepository accountRepository;
-
-    @Autowired
     AccountService accountService;
 
     @Autowired

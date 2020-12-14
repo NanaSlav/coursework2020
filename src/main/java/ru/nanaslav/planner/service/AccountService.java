@@ -94,4 +94,8 @@ public class AccountService implements UserDetailsService {
         accountRepository.save(account);
         return true;
     }
+
+    public Account getAccountByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
 }

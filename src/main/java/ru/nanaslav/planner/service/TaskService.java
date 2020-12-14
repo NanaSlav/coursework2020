@@ -46,4 +46,17 @@ public class TaskService {
         }
         return tasks;
     }
+
+    public Task getTaskById(long id) {
+        return taskRepository.findById(id).orElseThrow(IllegalStateException::new);
+    }
+
+    public boolean delete(long id) {
+        if (taskRepository.findById(id).isPresent()) {
+            taskRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

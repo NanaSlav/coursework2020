@@ -82,4 +82,8 @@ public class ProjectService {
         return projects;
     }
 
+    public Project getProjectById(long id) {
+        return projectRepository.findById(id).orElseThrow(IllegalStateException::new);
+    }
+
 }

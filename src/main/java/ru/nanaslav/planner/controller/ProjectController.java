@@ -11,6 +11,7 @@ import ru.nanaslav.planner.model.Participant;
 import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.repository.AccountRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
+import ru.nanaslav.planner.service.AccountService;
 import ru.nanaslav.planner.service.ProjectService;
 
 import java.util.List;
@@ -24,9 +25,7 @@ import java.util.List;
 @RequestMapping("/projects")
 public class ProjectController {
     @Autowired
-    ProjectRepository projectRepository;
-    @Autowired
-    AccountRepository accountRepository;
+    AccountService accountService;
     @Autowired
     ProjectService projectService;
 
@@ -40,7 +39,7 @@ public class ProjectController {
     @GetMapping("/{projectId}")
     public String showProjectPage(@PathVariable long projectId,
                                   Model model) {
-        Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
+        Project project = projectService.getProjectById(projectId);
         model.addAttribute("project", project);
         return "project/project-details";
     }
@@ -68,7 +67,7 @@ public class ProjectController {
     @PostMapping("/{projectId}/add-participant")
     public String addParticipant(@PathVariable long projectId,
                                  @RequestParam String participantName) {
-        Account account = accountRepository.findByUsername(participantName);
+        Account account = accountService.getAccountByUsername(participantName);
         if (account != null) {
             projectService.addParticipant(projectId, account);
         } else {

@@ -47,6 +47,9 @@ public class AuthenticationController {
      * @param password
      * @return redirect to main page
      */
+
+    // TODO: remove logic to account service
+
     @PostMapping("/registration")
     public String addUser(@RequestParam String username,
                           @RequestParam String email,
