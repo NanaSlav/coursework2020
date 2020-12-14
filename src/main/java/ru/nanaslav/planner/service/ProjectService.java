@@ -68,18 +68,27 @@ public class ProjectService {
     }
 
     public List<Project> search(String q) {
-        LinkedList<Project> projects = new LinkedList<>();
         List<Project> allProjects = projectRepository.findAll();
-        for (Project project : allProjects) {
+        return search(q, allProjects);
+    }
+
+    public List<Project> search(String q, Account account) {
+        List<Project> accountProjects = getProjectsByAccount(account);
+        return search(q, accountProjects);
+    }
+
+    private List<Project> search(String q, List<Project> projects) {
+        LinkedList<Project> result = new LinkedList<>();
+        for (Project project : projects) {
             if (project.getName().contains(q)) {
-                projects.addFirst(project);
+                result.addFirst(project);
             } else {
                 if (project.getDescription().contains(q)) {
-                    projects.addLast(project);
+                    result.addLast(project);
                 }
             }
         }
-        return projects;
+        return result;
     }
 
     public Project getProjectById(long id) {

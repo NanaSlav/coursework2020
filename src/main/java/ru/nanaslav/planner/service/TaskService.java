@@ -9,6 +9,7 @@ import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -51,6 +52,7 @@ public class TaskService {
         return taskRepository.findById(id).orElseThrow(IllegalStateException::new);
     }
 
+
     public boolean delete(long id) {
         if (taskRepository.findById(id).isPresent()) {
             taskRepository.deleteById(id);
@@ -65,6 +67,20 @@ public class TaskService {
         task.setName(name);
         task.setDescription(description);
         taskRepository.save(task);
+    }
 
+
+    public List<Task> search(String q, Project project) {
+        LinkedList<Task> tasks = new LinkedList<>();
+        for (Task task: project.getTasks()) {
+            if (task.getName().contains(q)) {
+                tasks.addFirst(task);
+            } else {
+                if (task.getDescription().contains(q)) {
+                    tasks.addLast(task);
+                }
+            }
+        }
+        return tasks;
     }
 }

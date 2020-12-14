@@ -13,6 +13,8 @@ import ru.nanaslav.planner.repository.AccountRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -97,5 +99,15 @@ public class AccountService implements UserDetailsService {
 
     public Account getAccountByUsername(String username) {
         return accountRepository.findByUsername(username);
+    }
+
+    public List<Account> search(String q) {
+        List<Account> accounts = new ArrayList<>();
+        for(Account account : accountRepository.findAll()) {
+            if (account.getUsername().contains(q)) {
+                accounts.add(account);
+            }
+        }
+        return accounts;
     }
 }
