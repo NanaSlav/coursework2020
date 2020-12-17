@@ -1,6 +1,9 @@
 package ru.nanaslav.planner.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +13,11 @@ import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
+import ru.nanaslav.planner.service.PaginationService;
 import ru.nanaslav.planner.service.ProjectService;
 import ru.nanaslav.planner.service.TaskService;
+
+import java.util.List;
 
 /**
  * Controller for task
@@ -25,10 +31,23 @@ public class TaskController {
     TaskService taskService;
     @Autowired
     ProjectService projectService;
+    @Autowired
+    PaginationService paginationService;
 
     @GetMapping("/")
-    public String showTasks(@AuthenticationPrincipal Account account, Model model) {
-        model.addAttribute("tasks", taskService.getTasksByAccount(account));
+    public String showTasks(@AuthenticationPrincipal Account account, Model model,
+                            @RequestParam(value = "page", defaultValue = "1") int page,
+                            @RequestParam(value = "size", defaultValue = "20") int size) {
+        PageRequest request = PageRequest.of(page - 1, size);
+        List<Task> taskList = taskService.getTasksByAccount(account);
+
+        int start = (int) request.getOffset();
+        int end = Math.min((start + request.getPageSize()), taskList.size());
+        Page<Task> tasks = new PageImpl<Task>(taskList.subList(start, end),request, taskList.size() );
+        int last = tasks.getTotalPages();
+        paginationService.setPages(page,last,size,model);
+        model.addAttribute("urlBegin", "/tasks/");
+        model.addAttribute("tasks", tasks);
         return "task/tasks-list";
     }
 

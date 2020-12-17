@@ -20,6 +20,9 @@
             <a th:href="@{'/projects/' + ${project.getId()}}" th:text="${project.getName()}" class="w3-text-theme-dark w3-large" style="text-decoration: none;"></a>
         </div>
     </div>
+
+    <br>
+    <div th:insert="common/pagination :: pages"></div>
 </div>
 </body>
 </html>

@@ -1,6 +1,10 @@
 package ru.nanaslav.planner.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.repository.AccountRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.service.AccountService;
+import ru.nanaslav.planner.service.PaginationService;
 import ru.nanaslav.planner.service.ProjectService;
 
 import java.util.List;
@@ -29,9 +34,23 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
+    @Autowired
+    PaginationService paginationService;
+
     @GetMapping("/")
-    public String showProjectsList(@AuthenticationPrincipal Account account, Model model) {
-        List<Project> projects = projectService.getProjectsByAccount(account);
+    public String showProjectsList(@AuthenticationPrincipal Account account, Model model,
+                                   @RequestParam(value = "page", defaultValue = "1") int page,
+                                   @RequestParam(value = "size", defaultValue = "20") int size) {
+        PageRequest request = PageRequest.of(page - 1, size);
+        List<Project> projectList = projectService.getProjectsByAccount(account);
+
+        int start = (int) request.getOffset();
+        int end = Math.min((start + request.getPageSize()), projectList.size());
+        Page<Project> projects = new PageImpl<Project>(projectList.subList(start, end),request, projectList.size() );
+
+        int last = projects.getTotalPages();
+        paginationService.setPages(page,last,size,model);
+        model.addAttribute("urlBegin", "/projects/");
         model.addAttribute("projects", projects);
         return "project/projects-list";
     }

@@ -19,6 +19,8 @@
             <a th:href="@{'/tasks/task/' + ${task.getId()}}" th:text="${task.getName()}" class="w3-text-theme-dark w3-large" style="text-decoration: none;"></a>
         </div>
     </div>
+
+    <div th:insert="common/pagination :: pages"></div>
 </div>
 </body>
 </html>
