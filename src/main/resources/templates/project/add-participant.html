@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+<div th:insert="common/navbar :: head"></div>
+<div th:insert="common/navbar :: side"></div>
+
+<div class="w3-container main-small">
+    <h1 class="w3-text-theme-dark">Add participant</h1>
+    <hr>
+    <form th:action="@{'/projects/' + ${projectId} + '/participants/add/'}" method="post" class="w3-container">
+        <label class="w3-text-theme-dark w3-xlarge">Username:</label>
+        <input type="text" name="username" class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme">
+
+        <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Add</button>
+    </form>
+</div>
+</body>
+</html>

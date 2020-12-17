@@ -100,4 +100,22 @@ public class ProjectController {
         projectService.delete(projectId);
        return "redirect:/projects/";
     }
+
+    @PostMapping("{projectId}/participants/add")
+    public String addParticipant(@RequestParam String username,
+                                 @PathVariable long projectId) {
+        Account account = accountService.getAccountByUsername(username);
+        if (account != null) {
+            projectService.addParticipant(projectId, account);
+        } else {
+            // TODO: error message - no such user
+        }
+        return "redirect:/projects/" + projectId;
+    }
+
+    @GetMapping("{projectId}/participants/add")
+    public String showAddParticipantForm(@PathVariable long projectId, Model model) {
+        model.addAttribute("projectId", projectId);
+        return "project/add-participant";
+    }
 }
