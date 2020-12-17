@@ -43,6 +43,10 @@
     margin-top: 2vh;
 }
 
+.left-small {
+    margin-right: 90vw;
+}
+
 .avatar {
     object-fit: cover;
     border-radius:50%;

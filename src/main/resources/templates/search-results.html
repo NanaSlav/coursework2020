@@ -8,6 +8,14 @@
 </head>
 <body>
 <div th:insert="common/navbar :: head"></div>
+<div class="w3-sidebar w3-bar-block left left-small w3-xlarge w3-text-theme">
+    <div style="margin-top: 20vh">
+        <a th:href="@{'/search/?q=' + ${q} + '&type=project'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in all projects</a>
+        <a th:href="@{'/search/?q=' + ${q} + '&type=account'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in accounts</a>
+        <a th:href="@{'/search/?q=' + ${q} + '&type=my-project'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in my projects</a>
+        <a th:href="@{'/search/?q=' + ${q} + '&type=my-task'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in my tasks</a>
+    </div>
+</div>
 
 <div class="w3-container main-small">
     <div class="w3-display-container">
@@ -16,14 +24,20 @@
     </div>
     <hr>
     <div th:each="result : ${results}">
-        <div th:if="${type.equals('project')}" class="w3-container">
+        <div th:if="${type.equals('project') || type.equals('my-project')}" class="w3-container">
             <a th:href="@{'/projects/' + ${result.getId()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
                 <p th:text="${result.getName()}" class="w3-text-theme-dark w3-large"></p>
                 <p th:text="${result.getDescription()}" class="w3-text-theme"></p>
             </a>
         </div>
         <div th:if="${type.equals('account')}" class="w3-container">
-            <p th:text="${result.getName()}" class="w3-text-theme-dark w3-large"></p>
+            <p th:text="${result.getUsername()}" class="w3-text-theme-dark w3-large"></p>
+        </div>
+        <div th:if="${type.equals('my-task')}">
+            <a th:href="@{'/tasks/task/' + ${result.getId()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
+                <p th:text="${result.getName()}" class="w3-text-theme-dark w3-large"></p>
+                <p th:text="${result.getDescription()}" class="w3-text-theme"></p>
+            </a>
         </div>
     </div>
     <div th:insert="common/pagination :: pages"></div>

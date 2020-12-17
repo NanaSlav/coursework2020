@@ -70,6 +70,10 @@ public class TaskService {
     }
 
 
+    public List<Task> search(String q, Account account) {
+        return search(q, getTasksByAccount(account));
+    }
+
     public List<Task> search(String q, Project project) {
         return search(q, project.getTasks());
     }
