@@ -7,12 +7,13 @@
         <table class="w3-table w3-bordered">
             <tr th:each="project : ${projects}">
                 <td>
-                    <a th:href="@{'/projects/' + ${project.getId()}}" th:text="${project.getName()}" style="text-decoration: none">
+                    <a th:href="@{'/projects/' + ${project.getId()}}" th:text="${project.getName()}" style="text-decoration: none"></a>
                 </td>
-                </a>
 
             </tr>
-            <tr><td>...</td></tr>
+            <tr><td>
+                <a th:href="@{/projects/}" style="text-decoration: none">...</a>
+            </td></tr>
         </table>
         <a class="w3-button w3-text-theme-dark" href="/projects/add">
             <i class="material-icons">add</i>

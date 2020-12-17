@@ -9,10 +9,18 @@
 <body>
 <div th:insert="common/navbar :: head"></div>
 
-<div th:insert="common/navbar :: side"></div>
-
 <div class="w3-container w3-row main">
-    <div class="w3-col l7">
+    <div class="w3-col l3" style="margin-top: 2vh;">
+        <div th:insert="common/projects :: card"></div>
+        <hr>
+        <p class="w3-text-theme-dark w3-margin w3-padding">
+            In hac habitasse platea dictumst. Nullam aliquam est accumsan nulla scelerisque bibendum.
+            Maecenas egestas eleifend sapien, et scelerisque orci. Donec mollis molestie lectus non ullamcorper.
+            Maecenas varius dui ut leo condimentum pellentesque. Mauris et varius lectus, non semper orci.
+        </p>
+
+    </div>
+    <div class="w3-col l7 w3-margin">
         <h2 class="w3-text-theme-dark w3-xxlarge">
             Morbi laoreet elit sapien
         </h2>
@@ -23,7 +31,7 @@
             per conubia nostra, per inceptos himenaeos. Phasellus in imperdiet dolor.
             Quisque vitae elementum erat, vitae malesuada nisi
         </p>
-
+        <hr>
         <h2 class="w3-text-theme-dark w3-xxlarge">Tasks</h2>
         <ul th:each="task : ${tasks}" class="w3-ul w3-xlarge">
             <a th:href="@{'/tasks/task/' + ${task.getId()}}" style="text-decoration: none">
@@ -32,9 +40,6 @@
         </ul>
     </div>
 
-    <div class="w3-col l3" style="margin-left: 12vw; margin-top: 2vh;">
-        <div th:insert="common/projects :: card"></div>
-    </div>
 
 </div>
 
