@@ -13,10 +13,12 @@
                 Account
             </a>
             <div class="w3-margin">
-                <input type="text" class="w3-bar-item w3-input w3-right w3-opacity" placeholder="Search..">
-                <a href="#" class="w3-bar-item w3-button w3-theme w3-right">
-                    <i class="material-icons">search</i>
-                </a>
+                <form th:action="@{/search/}" method="get">
+                    <input type="text" class="w3-bar-item w3-input w3-right w3-opacity" name="q" placeholder="Search..">
+                    <button class="w3-bar-item w3-button w3-theme w3-right" type="submit">
+                        <i class="material-icons">search</i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

@@ -71,8 +71,16 @@ public class TaskService {
 
 
     public List<Task> search(String q, Project project) {
+        return search(q, project.getTasks());
+    }
+
+    public List<Task> search(String q) {
+        return search(q, taskRepository.findAll());
+    }
+
+    private List<Task> search(String q, List<Task> allTasks) {
         LinkedList<Task> tasks = new LinkedList<>();
-        for (Task task: project.getTasks()) {
+        for (Task task: allTasks) {
             if (task.getName().contains(q)) {
                 tasks.addFirst(task);
             } else {

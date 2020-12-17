@@ -40,7 +40,7 @@ public class ProjectController {
     @GetMapping("/")
     public String showProjectsList(@AuthenticationPrincipal Account account, Model model,
                                    @RequestParam(value = "page", defaultValue = "1") int page,
-                                   @RequestParam(value = "size", defaultValue = "20") int size) {
+                                   @RequestParam(value = "size", defaultValue = "5") int size) {
         PageRequest request = PageRequest.of(page - 1, size);
         List<Project> projectList = projectService.getProjectsByAccount(account);
 
@@ -50,7 +50,7 @@ public class ProjectController {
 
         int last = projects.getTotalPages();
         paginationService.setPages(page,last,size,model);
-        model.addAttribute("urlBegin", "/projects/");
+        model.addAttribute("urlBegin", "/projects/?");
         model.addAttribute("projects", projects);
         return "project/projects-list";
     }

@@ -46,7 +46,7 @@ public class TaskController {
         Page<Task> tasks = new PageImpl<Task>(taskList.subList(start, end),request, taskList.size() );
         int last = tasks.getTotalPages();
         paginationService.setPages(page,last,size,model);
-        model.addAttribute("urlBegin", "/tasks/");
+        model.addAttribute("urlBegin", "/tasks/?");
         model.addAttribute("tasks", tasks);
         return "task/tasks-list";
     }
