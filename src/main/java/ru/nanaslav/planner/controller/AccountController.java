@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.repository.AccountRepository;
 import ru.nanaslav.planner.service.AccountService;
+import ru.nanaslav.planner.service.InfoMessageService;
 import ru.nanaslav.planner.service.ProjectService;
 
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class AccountController {
 
     @Autowired
     ProjectService projectService;
+    @Autowired
+    InfoMessageService messageService;
 
     private void accountInfo(Model model, Account account) {
         model.addAttribute("username", account.getUsername());
@@ -49,12 +52,13 @@ public class AccountController {
     public String accountEdit(@AuthenticationPrincipal Account account,
                               @RequestParam String username,
                               @RequestParam String email,
-                              @RequestParam String bio) {
+                              @RequestParam String bio, Model model) {
         if (accountService.editAccountInfo(account, username, email, bio)) {
             return "redirect:/account";
         } else {
-            // TODO: error message
-            return "redirect:/account/edit";
+            messageService.createErrorMessage(model, "Error",
+                    "Username or email is already used by other account");
+            return "account/edit-profile";
         }
 
     }

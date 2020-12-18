@@ -3,12 +3,14 @@ package ru.nanaslav.planner.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.repository.AccountRepository;
 import ru.nanaslav.planner.service.AccountService;
+import ru.nanaslav.planner.service.InfoMessageService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +33,8 @@ public class AuthenticationController {
 
     @Autowired
     AccountService accountService;
+    @Autowired
+    InfoMessageService messageService;
 
     @GetMapping("/login")
     public String login() {
@@ -54,15 +58,18 @@ public class AuthenticationController {
     public String addUser(@RequestParam String username,
                           @RequestParam String email,
                           @RequestParam String password,
-                          HttpServletRequest request) throws IOException {
+                          HttpServletRequest request,
+                          Model model) throws IOException {
 
         if (accountRepository.findByUsername(username) != null) {
-            // TODO: error username exists
-            return "redirect:/";
+            messageService.createErrorMessage(model,"User with such username exists",
+                    "Account with username '" + username + "' is exists. Please choose other username.");
+            return "home";
         }
         if (accountRepository.findByEmail(email) != null) {
-            // TODO: error email exists
-            return "redirect:/";
+            messageService.createErrorMessage(model, "User with such email exists",
+                    "Account with such email '" + email + "' exists. May be you already have account or make a mistake.");
+            return "home";
         }
         Account account = accountService.createAccount(username, email, password);
         try {

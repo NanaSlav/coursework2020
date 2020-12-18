@@ -9,6 +9,12 @@
 <body>
 <div class="w3-container gradient">
 <div class="w3-row">
+    <div th:if="${param.error}">
+        <div th:insert="common/info-box :: info (hasMessage=${true}, color='w3-red', title='Error', message='Invalid username or password' )"></div>
+    </div>
+    <div th:if="${param.logout}">
+        <div th:insert="common/info-box :: info (hasMessage=${true}, color='w3-blue', title='Logout', message='You have been logged out')"></div>
+    </div>
     <div class="w3-container w3-card w3-round-large w3-theme-xlight w3-col l7" style="margin-top: 7vh; margin-left: 7vw; margin-right: 7vw; height: max-content; margin-bottom: 7vh; width: 90vh">
         <form th:action="@{/login}" method="post" class="w3-container w3-padding-64" style="height: inherit; margin-right: 2vw;">
             <label class="w3-text-theme-dark w3-large w3-margin">Username or email</label>

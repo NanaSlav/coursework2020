@@ -16,6 +16,7 @@ import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.repository.AccountRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.service.AccountService;
+import ru.nanaslav.planner.service.InfoMessageService;
 import ru.nanaslav.planner.service.PaginationService;
 import ru.nanaslav.planner.service.ProjectService;
 
@@ -33,9 +34,10 @@ public class ProjectController {
     AccountService accountService;
     @Autowired
     ProjectService projectService;
-
     @Autowired
     PaginationService paginationService;
+    @Autowired
+    InfoMessageService messageService;
 
     @GetMapping("/")
     public String showProjectsList(@AuthenticationPrincipal Account account, Model model,
@@ -83,19 +85,6 @@ public class ProjectController {
         return "project/add-project";
     }
 
-    @PostMapping("/{projectId}/add-participant")
-    public String addParticipant(@PathVariable long projectId,
-                                 @RequestParam String participantName) {
-        Account account = accountService.getAccountByUsername(participantName);
-        if (account != null) {
-            projectService.addParticipant(projectId, account);
-        } else {
-            // TODO: return message - no user
-            return "";
-        }
-        // TODO: add view - participants list
-        return "";
-    }
 
     @GetMapping("/edit/{projectId}")
     public String showEditForm(@PathVariable long projectId, Model model) {
@@ -122,12 +111,15 @@ public class ProjectController {
 
     @PostMapping("{projectId}/participants/add")
     public String addParticipant(@RequestParam String username,
-                                 @PathVariable long projectId) {
+                                 @PathVariable long projectId,
+                                 Model model) {
         Account account = accountService.getAccountByUsername(username);
         if (account != null) {
             projectService.addParticipant(projectId, account);
         } else {
-            // TODO: error message - no such user
+            messageService.createErrorMessage(model, "No such user",
+                    "There is no account with username '" + username + "' .May be you have a mistake");
+            return "project/add-participant";
         }
         return "redirect:/projects/" + projectId;
     }

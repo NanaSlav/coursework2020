@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="info">
+    <div th:if="${hasMessage}">
+        <div th:class="'w3-panel w3-display-container ' + ${color}">
+        <span onclick="this.parentElement.style.display='none'" class="w3-large w3-button w3-display-topright">
+            &times;
+        </span>
+            <h3 th:text="${title}"></h3>
+            <p th:text="${message}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
