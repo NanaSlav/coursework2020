@@ -15,11 +15,18 @@
     </div>
     <hr>
     <div th:each="task : ${tasks}">
-        <div class="w3-container">
-            <a th:href="@{'/tasks/task/' + ${task.getId()}}" th:text="${task.getName()}" class="w3-text-theme-dark w3-large" style="text-decoration: none;"></a>
-        </div>
+        <a th:href="@{'/tasks/task/' + ${task.getId()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
+            <div class="w3-container w3-card w3-margin">
+                <h3 th:text="${task.getName()}" class="w3-text-theme-dark"></h3>
+                <div th:if="${task.getDescription().length() > 256}">
+                    <p th:text="${task.getDescription().substring(0, 256)} + '...'" class="w3-text-theme-dark"></p>
+                </div>
+                <div th:if="${task.getDescription().length() <= 256}">
+                    <p th:text="${task.getDescription()}" class="w3-text-theme-dark"></p>
+                </div>
+            </div>
+        </a>
     </div>
-
     <div th:insert="common/pagination :: pages"></div>
 </div>
 </body>

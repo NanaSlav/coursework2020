@@ -13,12 +13,14 @@
 <div class="w3-container main-small">
     <div class="w3-display-container">
         <h1 class="w3-text-theme-dark" th:text="${project.getName()}"></h1>
-        <p class="w3-text-theme-dark w3-large" th:text="${project.getDescription()}"></p>
         <div class="w3-display-right">
             <a th:href="@{'/tasks/add/' + ${project.getId()}}" class="w3-btn w3-theme w3-large w3-round-large" style="display: inline-block">Create new task</a>
             <a th:href="@{'/projects/edit/' + ${project.getId()}}" class="w3-btn w3-theme w3-large w3-round-large" style="display: inline-block">Edit</a>
             <a th:href="@{'/projects/' + ${project.getId()} + '/participants/add'}" class="w3-btn w3-theme w3-large w3-round-large" style="display: inline-block">Add participant</a>
         </div>
+    </div>
+    <div class="w3-container">
+        <p class="w3-text-theme-dark w3-large" th:text="${project.getDescription()}"></p>
     </div>
 
     <button  onclick="document.getElementById('delete-modal').style.display='block'"

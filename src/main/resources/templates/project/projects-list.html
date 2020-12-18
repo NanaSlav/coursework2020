@@ -16,9 +16,17 @@
     </div>
     <hr>
     <div th:each="project : ${projects}">
-        <div class="w3-container">
-            <a th:href="@{'/projects/' + ${project.getId()}}" th:text="${project.getName()}" class="w3-text-theme-dark w3-large" style="text-decoration: none;"></a>
-        </div>
+        <a th:href="@{'/projects/' + ${project.getId()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
+            <div class="w3-container w3-card w3-margin">
+                <h3  th:text="${project.getName()}" class="w3-text-theme-dark"></h3>
+                <div th:if="${project.getDescription().length() > 256}">
+                    <p th:text="${project.getDescription().substring(0, 256)} + '...'" class="w3-text-theme-dark w3-large"></p>
+                </div>
+                <div th:if="${project.getDescription().length() <= 256}">
+                    <p th:text="${project.getDescription()}" class="w3-text-theme-dark w3-large"></p>
+                </div>
+            </div>
+        </a>
     </div>
 
     <br>
