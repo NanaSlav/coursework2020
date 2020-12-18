@@ -9,6 +9,7 @@ import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,11 +38,12 @@ public class TaskService {
 
     public List<Task> getTasksByAccount(Account account) {
         List<Project> projects = projectService.getProjectsByAccount(account);
-        List<Task> tasks = new ArrayList<>();
+        LinkedList<Task> tasks = new LinkedList<>();
+        Collections.reverse(projects);
         for (Project project : projects) {
             for (Task task : project.getTasks()) {
                 if (!task.isDone()) {
-                    tasks.add(task);
+                    tasks.addFirst(task);
                 }
             }
         }

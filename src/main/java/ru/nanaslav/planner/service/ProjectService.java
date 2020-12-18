@@ -50,18 +50,18 @@ public class ProjectService {
     }
 
     public List<Project> getProjectsByAccount(Account account, boolean lazy) {
-        List<Project> projects = new ArrayList<>();
+        LinkedList<Project> projects = new LinkedList<>();
         List<Participant> participants = participantRepository.findAllByParticipant(account);
         if (lazy && participants.size() > 6) {
             int count = 0;
             for (Participant participant : participants) {
-                projects.add(participant.getProject());
+                projects.addFirst(participant.getProject());
                 count++;
                 if (count == 6) break;
             }
         } else {
             for (Participant participant : participants) {
-                projects.add(participant.getProject());
+                projects.addFirst(participant.getProject());
             }
         }
         return projects;
