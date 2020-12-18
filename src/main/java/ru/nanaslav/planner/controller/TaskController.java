@@ -68,10 +68,16 @@ public class TaskController {
     }
 
     @GetMapping("/add/{projectId}")
-    public String showAddTask(@PathVariable long projectId, Model model) {
+    public String showAddTask(@PathVariable long projectId, Model model,
+                              @AuthenticationPrincipal Account account) {
         Project project = projectService.getProjectById(projectId);
-        model.addAttribute("projectName", project.getName());
-        return "task/add-task";
+        if (projectService.getAccess(project, account).equals("full")) {
+            model.addAttribute("projectName", project.getName());
+            return "task/add-task";
+        } else {
+            return "redirect:/projects/" + projectId;
+        }
+
     }
 
     /**
@@ -80,16 +86,26 @@ public class TaskController {
      * @return view name
      */
     @PostMapping("/{id}/done")
-    public String setDone(@PathVariable long id) {
-        taskService.setDone(id);
-        return "redirect:/tasks/task/" + id;
+    public String setDone(@PathVariable long id, @AuthenticationPrincipal Account account) {
+        String access = projectService.getAccess(taskService.getTaskById(id).getProject(), account);
+        if (access.equals("full")) {
+            taskService.setDone(id);
+            return "redirect:/tasks/task/" + id;
+        } else {
+            return "redirect:/tasks";
+        }
     }
 
     @GetMapping("/task/{taskId}")
-    public String showTaskPage(@PathVariable long taskId, Model model) {
+    public String showTaskPage(@PathVariable long taskId, Model model, @AuthenticationPrincipal Account account) {
         Task task = taskService.getTaskById(taskId);
-        model.addAttribute("task", task);
-        return "task/task-details";
+        String access = projectService.getAccess(task.getProject(), account);
+        if (!access.equals("guest")) {
+            model.addAttribute("task", task);
+            return "task/task-details";
+        } else {
+            return "redirect:/tasks/";
+        }
     }
 
     @PostMapping("/delete/{taskId}")
@@ -99,13 +115,19 @@ public class TaskController {
     }
 
     @GetMapping("/edit/{taskId}")
-    public String showEditForm(@PathVariable long taskId, Model model) {
+    public String showEditForm(@PathVariable long taskId, Model model,
+                               @AuthenticationPrincipal Account account) {
         Task task = taskService.getTaskById(taskId);
-        model.addAttribute("taskName", task.getName());
-        model.addAttribute("taskDescription", task.getDescription());
-        model.addAttribute("projectName", task.getProject().getName());
-        model.addAttribute("projectId", task.getProject().getId());
-        return "task/edit-task";
+        String access = projectService.getAccess(task.getProject(), account);
+        if (access.equals("full")) {
+            model.addAttribute("taskName", task.getName());
+            model.addAttribute("taskDescription", task.getDescription());
+            model.addAttribute("projectName", task.getProject().getName());
+            model.addAttribute("projectId", task.getProject().getId());
+            return "task/edit-task";
+        } else {
+            return "redirect:/tasks/task/" + taskId;
+        }
     }
 
     @PostMapping("/edit/{taskId}")

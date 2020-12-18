@@ -59,9 +59,12 @@ public class ProjectController {
 
     @GetMapping("/{projectId}")
     public String showProjectPage(@PathVariable long projectId,
+                                  @AuthenticationPrincipal Account account,
                                   Model model) {
         Project project = projectService.getProjectById(projectId);
         model.addAttribute("project", project);
+        String access = projectService.getAccess(project, account);
+        model.addAttribute("access", access);
         return "project/project-details";
     }
 
@@ -87,12 +90,18 @@ public class ProjectController {
 
 
     @GetMapping("/edit/{projectId}")
-    public String showEditForm(@PathVariable long projectId, Model model) {
+    public String showEditForm(@PathVariable long projectId, Model model,
+                               @AuthenticationPrincipal Account account) {
         Project project = projectService.getProjectById(projectId);
-        model.addAttribute("name", project.getName());
-        model.addAttribute("description", project.getDescription());
-        model.addAttribute("id", project.getId());
-        return "project/edit-project";
+        if(projectService.getAccess(project, account).equals("full")) {
+            model.addAttribute("name", project.getName());
+            model.addAttribute("description", project.getDescription());
+            model.addAttribute("id", project.getId());
+            return "project/edit-project";
+        } else {
+            return "redirect:/projects/" + projectId;
+        }
+
     }
 
     @PostMapping("/edit/{projectId}")
@@ -125,8 +134,13 @@ public class ProjectController {
     }
 
     @GetMapping("{projectId}/participants/add")
-    public String showAddParticipantForm(@PathVariable long projectId, Model model) {
-        model.addAttribute("projectId", projectId);
-        return "project/add-participant";
+    public String showAddParticipantForm(@PathVariable long projectId, Model model,
+                                         @AuthenticationPrincipal Account account) {
+        if (projectService.getAccess(projectId, account).equals("full")) {
+            model.addAttribute("projectId", projectId);
+            return "project/add-participant";
+        } else {
+            return "redirect:/projects/" + projectId;
+        }
     }
 }

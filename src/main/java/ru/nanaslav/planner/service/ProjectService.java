@@ -115,4 +115,18 @@ public class ProjectService {
         }
     }
 
+    public String getAccess(Project project, Account account) {
+        for (Participant participant : project.getParticipants()) {
+            if (participant.getParticipant().getUsername().equals(account.getUsername())) {
+                return "full";
+            }
+        }
+        return "guest";
+    }
+
+    public String getAccess(long projectId, Account account) {
+        Project project = getProjectById(projectId);
+        return getAccess(project, account);
+    }
+
 }
