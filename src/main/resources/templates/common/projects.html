@@ -2,19 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="card">
-    <div class="w3-container w3-card w3-margin">
+    <div class="w3-container w3-card w3-margin w3-padding">
         <h2>Projects</h2>
-        <table class="w3-table w3-bordered">
-            <tr th:each="project : ${projects}">
-                <td>
-                    <a th:href="@{'/projects/' + ${project.getId()}}" th:text="${project.getName()}" style="text-decoration: none"></a>
-                </td>
+        <hr>
+        <div th:if="${!projects.isEmpty()}">
+            <table class="w3-table w3-bordered">
+                <tr th:each="project : ${projects}">
+                    <td>
+                        <a th:href="@{'/projects/' + ${project.getId()}}" th:text="${project.getName()}" style="text-decoration: none"></a>
+                    </td>
 
-            </tr>
-            <tr><td>
-                <a th:href="@{/projects/}" style="text-decoration: none">...</a>
-            </td></tr>
-        </table>
+                </tr>
+                <tr><td>
+                    <a th:href="@{/projects/}" style="text-decoration: none">...</a>
+                </td></tr>
+            </table>
+        </div>
+        <div th:if="${projects.isEmpty()}">
+            <h3 class="w3-text-theme-dark">You don't have projects yet</h3>
+            <a th:href="@{/projects/add}" class="w3-text-theme w3-large">Create your first project</a>
+        </div>
         <a class="w3-button w3-text-theme-dark" href="/projects/add">
             <i class="material-icons">add</i>
         </a>

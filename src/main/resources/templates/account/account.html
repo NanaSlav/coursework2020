@@ -15,6 +15,9 @@
             <div th:if="${avatar != null}" class="w3-margin">
                 <img th:src="'/avatar/' + ${avatar}" class="avatar">
             </div>
+            <div th:if="${avatar == null}">
+                <img src="/img/avatar.jpg" class="avatar">
+            </div>
             <p th:text="${username}" class="w3-text-theme-dark w3-xlarge"></p>
             <a th:href="@{/account/edit}" class="w3-btn w3-large w3-round-large w3-padding w3-margin w3-border w3-border-theme" style="width: 80%">Edit profile</a>
             <form th:action="@{/logout}" method="post">

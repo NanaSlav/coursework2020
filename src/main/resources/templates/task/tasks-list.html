@@ -27,7 +27,15 @@
             </div>
         </a>
     </div>
-    <div th:insert="common/pagination :: pages"></div>
+    <div th:if="${tasks.isEmpty()}">
+        <div class="w3-display-middle">
+            <img src="/img/empty2.jpg" style="width: 20vw" class="w3-margin">
+            <p class="w3-text-theme w3-xlarge" style="margin-left: 4vw">You have no tasks yet</p>
+        </div>
+    </div>
+    <div th:if="${!tasks.isEmpty()}">
+        <div th:insert="common/pagination :: pages" class="w3-margin"></div>
+    </div>
 </div>
 </body>
 </html>

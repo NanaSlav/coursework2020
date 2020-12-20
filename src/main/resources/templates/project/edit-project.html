@@ -8,9 +8,14 @@
 </head>
 <body>
 <div th:insert="common/navbar :: head"></div>
+<div th:insert="common/delete-modal :: delete(path='/projects/delete/' + ${id})"></div>
 
 <div class="w3-container main-small">
-    <h1 class="w3-text-theme-dark">Edit project</h1>
+    <div class="w3-display-container">
+        <h1 class="w3-text-theme-dark">Edit project</h1>
+        <button  onclick="document.getElementById('delete-modal').style.display='block'"
+                 class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin w3-display-right">Delete project</button>
+    </div>
     <hr>
     <form th:action="@{'/projects/edit/' + ${id}}" method="post" class="w3-container">
         <label class="w3-text-theme-dark w3-xlarge">Title:</label>

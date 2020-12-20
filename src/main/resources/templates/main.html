@@ -38,6 +38,9 @@
                 <li th:text="${task.getName()}"></li>
             </a>
         </ul>
+        <div th:if="${tasks.isEmpty()}" class="w3-container">
+            <img src="/img/empty2.jpg" style="width: 20vw; margin-left: 20vw;">
+        </div>
     </div>
 
 

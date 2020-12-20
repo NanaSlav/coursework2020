@@ -21,7 +21,7 @@
 <div class="w3-container main-small">
     <div class="w3-display-container">
         <h1 class="w3-text-theme-dark">Search results: </h1>
-        <p th:text="${q}" class="w3-text-theme w3-large"></p>
+        <p th:if="${!results.isEmpty()}" th:text="${q}" class="w3-text-theme w3-large"></p>
     </div>
     <hr>
     <div th:each="result : ${results}">
@@ -50,7 +50,14 @@
             </a>
         </div>
     </div>
-    <div th:insert="common/pagination :: pages"></div>
+    <div th:if="${results.isEmpty()}">
+        <h2 th:text="'Nothing is found on request \'' + ${q} + '\''" class="w3-text-theme-dark"></h2>
+        <p class="w3-text-theme w3-large">Please try to search by other key words</p>
+    </div>
+
+    <div th:if="${!results.isEmpty()}">
+        <div th:insert="common/pagination :: pages" class="w3-margin"></div>
+    </div>
 </div>
 </body>
 </html>

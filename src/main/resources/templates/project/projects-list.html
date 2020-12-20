@@ -28,9 +28,16 @@
             </div>
         </a>
     </div>
+    <div th:if="${projects.isEmpty()}">
+        <div class="w3-display-middle">
+            <img src="/img/empty.jpg" style="width: 20vw" class="w3-margin">
+            <p class="w3-text-theme w3-xlarge" style="margin-left: 4vw">You have no projects yet</p>
+        </div>
+    </div>
 
-    <br>
-    <div th:insert="common/pagination :: pages"></div>
+    <div th:if="${!projects.isEmpty()}">
+        <div th:insert="common/pagination :: pages" class="w3-margin"></div>
+    </div>
 </div>
 </body>
 </html>
