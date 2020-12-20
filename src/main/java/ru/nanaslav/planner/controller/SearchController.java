@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.nanaslav.planner.model.Account;
+import ru.nanaslav.planner.model.Attachment;
 import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
-import ru.nanaslav.planner.service.AccountService;
-import ru.nanaslav.planner.service.PaginationService;
-import ru.nanaslav.planner.service.ProjectService;
-import ru.nanaslav.planner.service.TaskService;
+import ru.nanaslav.planner.service.*;
 
 import java.util.List;
 
@@ -33,6 +31,8 @@ public class SearchController {
     AccountService accountService;
     @Autowired
     PaginationService paginationService;
+    @Autowired
+    AttachmentService attachmentService;
 
     @GetMapping("/")
     public String search(@RequestParam String q,
@@ -48,6 +48,13 @@ public class SearchController {
         int end = 0;
         int last = 0;
         switch (type) {
+            case "attach":
+                List<Attachment> attachmentList = attachmentService.search(q, account);
+                end = Math.min(start + request.getPageSize(), attachmentList.size());
+                Page<Attachment> attachments = new PageImpl<>(attachmentList.subList(start, end), request, attachmentList.size());
+                last = attachments.getTotalPages();
+                model.addAttribute("results", attachments);
+                break;
             case "my-project":
                 List<Project> projectList = projectService.search(q, account);
                 end = Math.min(start + request.getPageSize(), projectList.size());

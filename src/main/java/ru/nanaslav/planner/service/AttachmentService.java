@@ -15,7 +15,6 @@ public class AttachmentService {
     @Autowired
     AttachmentRepository attachmentRepository;
 
-
     @Autowired
     TaskService taskService;
 
@@ -24,6 +23,21 @@ public class AttachmentService {
         List<Attachment> attachments = new ArrayList<>();
         for (Task task : tasks) {
             attachments.addAll(task.getAttachments());
+        }
+        return attachments;
+    }
+
+    public List<Attachment> search(String q, Account account) {
+        List<Attachment> allAttachments = getAttachmentsByAccount(account);
+        return search(q, allAttachments);
+    }
+
+    private List<Attachment> search(String q, List<Attachment> allAttachments) {
+        List<Attachment> attachments = new ArrayList<>();
+        for (Attachment attachment : allAttachments) {
+            if (attachment.getName().contains(q)) {
+                attachments.add(attachment);
+            }
         }
         return attachments;
     }

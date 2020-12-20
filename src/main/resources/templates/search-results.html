@@ -14,6 +14,7 @@
         <a th:href="@{'/search/?q=' + ${q} + '&type=account'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in accounts</a>
         <a th:href="@{'/search/?q=' + ${q} + '&type=my-project'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in my projects</a>
         <a th:href="@{'/search/?q=' + ${q} + '&type=my-task'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in my tasks</a>
+        <a th:href="@{'/search/?q=' + ${q} + '&type=attach'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in my attached files</a>
     </div>
 </div>
 
@@ -37,6 +38,15 @@
             <a th:href="@{'/tasks/task/' + ${result.getId()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
                 <p th:text="${result.getName()}" class="w3-text-theme-dark w3-large"></p>
                 <p th:text="${result.getDescription()}" class="w3-text-theme"></p>
+            </a>
+        </div>
+
+        <div th:if="${type.equals('attach')}">
+            <a download th:href="@{'/avatars/files/' + ${result.getName()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
+                <object>
+                    <a th:href="@{'/tasks/task/' + ${result.getTask().getId()}}" th:text="'Task: ' + ${result.getTask().getName()}" class="w3-text-theme-dark w3-xlarge"></a>
+                </object>
+                <p th:text="${result.getName()}" class="w3-text-theme-dark w3-large"></p>
             </a>
         </div>
     </div>
