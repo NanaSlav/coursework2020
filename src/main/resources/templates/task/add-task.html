@@ -8,6 +8,7 @@
 </head>
 <body>
 <div th:insert="common/navbar :: head"></div>
+<div id="alert"></div>
 
 <div class="w3-container main-small">
     <h1 class="w3-text-theme-dark">Create new task</h1>
@@ -21,12 +22,38 @@
         <textarea class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme" rows="10" name="description"></textarea>
         <br>
         <label class="w3-text-theme-dark w3-xlarge">Attached files: </label>
-        <input type="file" name="files" multiple class="w3-input w3-text-theme w3-large w3-border w3-round">
+        <input type="file" name="files" multiple id="files" onchange="checkFileSize()" class="w3-input w3-text-theme w3-large w3-border w3-round">
 
         <input type="hidden" name="projectId" th:value="${projectId}">
         <hr>
         <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Create task</button>
     </form>
+
+    <script th:inline="javascript">
+        function checkFileSize() {
+            console.log("i am working");
+            var uploadField = document.getElementById('files');
+            var files = uploadField.files;
+            console.log(files.length);
+            for (var i = 0; i < files.length; i++) {
+                console.log("for");
+                console.log(files[i].size);
+                if (files[i].size > (100 * 1024 * 1024)) {
+                    files = [];
+                    // TODO: it's not work
+                    var div = document.createElement('div');
+                    div.setAttribute("th:insert",
+                        "common/info-box :: info (hasMessage=${true}, " +
+                        "color = \'w3-red\', " +
+                        "title=\'Error\', " +
+                        "message=\'File size couldn't be more than 100 MB\')");
+                    document.body.appendChild(div);
+                    alert('File size couldn\'t be more than 100 MB');
+                    break;
+                }
+            }
+        }
+    </script>
 </div>
 </body>
 </html>
