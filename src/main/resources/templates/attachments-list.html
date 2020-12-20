@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+<div th:insert="common/navbar :: head"></div>
+
+<div class="w3-container main-small">
+    <div class="w3-display-container">
+        <h1 class="w3-text-theme-dark">All your attached files</h1>
+    </div>
+    <hr>
+    <div th:each="file : ${attachments}">
+        <a download th:href="@{'/avatars/files/' + ${file.getName()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
+            <div class="w3-container w3-card w3-margin">
+                <object>
+                    <a th:href="@{'/tasks/task/' + ${file.getTask().getId()}}" th:text="'Task: ' + ${file.getTask().getName()}" class="w3-text-theme-dark w3-xlarge"></a>
+                </object>
+                <p th:text="${file.getName()}" class="w3-text-theme-dark w3-large"></p>
+            </div>
+        </a>
+    </div>
+    <div th:insert="common/pagination :: pages"></div>
+</div>
+</body>
+</html>
