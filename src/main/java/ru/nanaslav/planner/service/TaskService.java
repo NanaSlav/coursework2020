@@ -1,17 +1,20 @@
 package ru.nanaslav.planner.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.nanaslav.planner.model.Account;
+import ru.nanaslav.planner.model.Attachment;
 import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
+import ru.nanaslav.planner.repository.AttachmentRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class TaskService {
@@ -22,14 +25,45 @@ public class TaskService {
     ProjectRepository projectRepository;
 
     @Autowired
+    AttachmentRepository attachmentRepository;
+
+    @Autowired
     ProjectService projectService;
 
-    public void createTask(String taskName, String description, long projectId) {
+    @Value("${upload.path}")
+    String uploadPath;
+
+    public Task createTask(String taskName, String description, long projectId) {
         Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
         Task task = new Task(taskName, description, project);
         task.setDone(false);
         taskRepository.save(task);
+        return task;
     }
+
+    public Task createTask(String taskName, String description, long projectId, List<MultipartFile> files) throws IOException {
+        Task task = createTask(taskName, description, projectId);
+        List<Attachment> attachments = new ArrayList<>();
+        if (!files.isEmpty()) {
+            for (MultipartFile file : files) {
+                Attachment attachment = new Attachment();
+                File uploadDir = new File(uploadPath + "/files/");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                String filename = UUID.randomUUID().toString() + file.getOriginalFilename();
+                file.transferTo(new File(uploadPath + "/files/" + filename));
+                attachment.setName(filename);
+                attachment.setTask(task);
+                attachmentRepository.save(attachment);
+                attachments.add(attachment);
+            }
+            task.setAttachments(attachments);
+            taskRepository.save(task);
+        }
+        return task;
+    }
+
     public void setDone(long taskId) {
         Task task = taskRepository.findById(taskId).orElseThrow(IllegalStateException::new);
         task.setDone(true);

@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
@@ -17,6 +18,7 @@ import ru.nanaslav.planner.service.PaginationService;
 import ru.nanaslav.planner.service.ProjectService;
 import ru.nanaslav.planner.service.TaskService;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -61,9 +63,10 @@ public class TaskController {
     @PostMapping("/add")
     public String addTask(@RequestParam String taskName,
                           @RequestParam String description,
-                          @RequestParam long projectId) {
+                          @RequestParam long projectId,
+                          @RequestParam List<MultipartFile> files) throws IOException {
 
-        taskService.createTask(taskName, description, projectId);
+        taskService.createTask(taskName, description, projectId, files);
         return "redirect:/projects/" + projectId;
     }
 

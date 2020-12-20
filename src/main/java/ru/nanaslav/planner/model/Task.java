@@ -3,6 +3,7 @@ package ru.nanaslav.planner.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Task entity
@@ -26,6 +27,13 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    @OneToMany(
+            mappedBy = "task",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Attachment> attachments;
 
     public Task(String name, String description, Project project) {
         this.name = name;
