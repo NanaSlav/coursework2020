@@ -29,6 +29,12 @@
     </div>
     <hr>
     <div class="w3-text-theme-dark w3-large" th:text="${task.getDescription()}"></div>
+    <hr>
+    <h2 class="w3-text-theme-dark">Attachments:</h2>
+    <div th:each="file : ${task.getAttachments()}">
+        <a th:href="@{'/avatar/files/' + ${file.getName()}}" download th:text="${file.getName()}" class="w3-text-theme" style="text-decoration: none"></a>
+    </div>
+    <hr>
     <button  onclick="document.getElementById('delete-modal').style.display='block'"
              class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin">Delete task</button>
 </div>
