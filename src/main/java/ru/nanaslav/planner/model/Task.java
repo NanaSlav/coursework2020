@@ -35,6 +35,13 @@ public class Task {
     )
     private List<Attachment> attachments;
 
+    @OneToMany(
+            mappedBy = "task",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Comment> comments;
+
     public Task(String name, String description, Project project) {
         this.name = name;
         this.description = description;

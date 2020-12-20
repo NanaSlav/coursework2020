@@ -39,6 +39,22 @@
     </div>
     <button  onclick="document.getElementById('delete-modal').style.display='block'"
              class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin">Delete task</button>
+
+    <h2 class="w3-text-theme-dark">Comments:</h2>
+    <div th:if="${task.getComments().isEmpty()}">
+        <p class="w3-text-theme w3-large">There is no comments yet</p>
+    </div>
+    <div th:if="${!task.getComments().isEmpty()}">
+        <div th:each="comment : ${task.getComments()}">
+            <h3 class="w3-text-theme-dark" th:text="${comment.getAuthor().getUsername()}"></h3>
+            <p th:text="${comment.getText()}" class="w3-text-theme"></p>
+        </div>
+    </div>
+    <form th:action="@{'/tasks/' + ${task.getId() + '/comment/'}}" method="post" class="w3-container">
+        <textarea class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme" rows="10" name="text"></textarea>
+        <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Comment</button>
+    </form>
+
 </div>
 </body>
 </html>

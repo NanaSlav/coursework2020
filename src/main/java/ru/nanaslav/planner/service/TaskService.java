@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.nanaslav.planner.model.Account;
-import ru.nanaslav.planner.model.Attachment;
-import ru.nanaslav.planner.model.Project;
-import ru.nanaslav.planner.model.Task;
+import ru.nanaslav.planner.model.*;
 import ru.nanaslav.planner.repository.AttachmentRepository;
+import ru.nanaslav.planner.repository.CommentRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
 
@@ -29,6 +27,9 @@ public class TaskService {
 
     @Autowired
     ProjectService projectService;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @Value("${upload.path}")
     String uploadPath;
@@ -130,5 +131,17 @@ public class TaskService {
             }
         }
         return tasks;
+    }
+
+    public void addComment(Task task, String text, Account author) {
+        Comment comment = new Comment();
+        comment.setAuthor(author);
+        comment.setTask(task);
+        comment.setText(text);
+        commentRepository.save(comment);
+        List<Comment> comments = task.getComments();
+        comments.add(comment);
+        task.setComments(comments);
+        taskRepository.save(task);
     }
 }

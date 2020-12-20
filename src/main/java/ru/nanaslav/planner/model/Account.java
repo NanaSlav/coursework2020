@@ -49,6 +49,16 @@ public class Account implements UserDetails {
     )
     private List<Participant> participants;
 
+    @OneToMany(
+            mappedBy = "author",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            orphanRemoval = true
+    )
+    private List<Comment> comments;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

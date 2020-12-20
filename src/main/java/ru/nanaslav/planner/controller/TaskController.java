@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.nanaslav.planner.model.Account;
 import ru.nanaslav.planner.model.Project;
 import ru.nanaslav.planner.model.Task;
+import ru.nanaslav.planner.repository.CommentRepository;
 import ru.nanaslav.planner.repository.ProjectRepository;
 import ru.nanaslav.planner.repository.TaskRepository;
 import ru.nanaslav.planner.service.PaginationService;
@@ -35,6 +36,7 @@ public class TaskController {
     ProjectService projectService;
     @Autowired
     PaginationService paginationService;
+
 
     @GetMapping("/")
     public String showTasks(@AuthenticationPrincipal Account account, Model model,
@@ -138,6 +140,15 @@ public class TaskController {
                            @RequestParam String name,
                            @RequestParam String description) {
         taskService.editTask(taskId, name, description);
+        return "redirect:/tasks/task/" + taskId;
+    }
+
+    @PostMapping("{taskId}/comment/")
+    public String addComment(@RequestParam String text,
+                             @AuthenticationPrincipal Account account,
+                             @PathVariable long taskId) {
+        Task task = taskService.getTaskById(taskId);
+        taskService.addComment(task, text, account);
         return "redirect:/tasks/task/" + taskId;
     }
 }
