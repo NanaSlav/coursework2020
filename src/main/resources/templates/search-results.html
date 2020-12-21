@@ -9,7 +9,7 @@
 <body>
 <div th:insert="common/navbar :: head"></div>
 <div class="w3-sidebar w3-bar-block left left-small w3-xlarge w3-text-theme">
-    <div style="margin-top: 20vh">
+    <div style="margin-top: 10vh">
         <a th:href="@{'/search/?q=' + ${q} + '&type=project'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in all projects</a>
         <a th:href="@{'/search/?q=' + ${q} + '&type=account'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in accounts</a>
         <a th:href="@{'/search/?q=' + ${q} + '&type=my-project'}" class="w3-bar-item w3-button w3-right-align w3-padding-32">Search in my projects</a>
