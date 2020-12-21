@@ -15,7 +15,7 @@
     <hr>
         <form th:action="@{/projects/add}" method="post" class="w3-container">
             <label class="w3-text-theme-dark w3-xlarge">Title:</label>
-            <input required class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme" type="text" name="projectName">
+            <input required pattern="^(?!\s*$).+" maxlength="64" class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme" type="text" name="projectName">
 
             <label class="w3-text-theme-dark w3-xlarge">Description: </label>
             <textarea class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme" rows="10" name="description"></textarea>

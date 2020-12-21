@@ -26,13 +26,13 @@
             <div class="w3-container w3-card w3-round-large w3-theme-xlight" style="margin-top: 7vh; margin-left: 7vw; margin-right: 7vw; height: max-content; margin-bottom: 7vh;">
                 <form th:action="@{/registration}" method="post" class="w3-container w3-padding-64" style="height: inherit; margin-right: 2vw;">
                     <label class="w3-text-theme-dark w3-large w3-margin">Username</label>
-                    <input type="text" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" name="username" required>
+                    <input type="text" pattern="[a-zA-Z][a-zA-Z0-9]+" maxlength="32" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" name="username" required>
 
                     <label class="w3-text-theme-dark w3-large w3-margin">Email</label>
                     <input type="email" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" name="email" required>
 
                     <label class="w3-text-theme-dark w3-large w3-margin">Password</label>
-                    <input type="password" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" name="password" required>
+                    <input type="password" pattern="/^.{6,}$/" maxlength="32" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme" name="password" required>
 
                     <p class="w3-margin">In metus vulputate eu scelerisque felis imperdiet proin fermentum leo.</p>
 

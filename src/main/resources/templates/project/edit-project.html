@@ -19,7 +19,7 @@
     <hr>
     <form th:action="@{'/projects/edit/' + ${id}}" method="post" class="w3-container">
         <label class="w3-text-theme-dark w3-xlarge">Title:</label>
-        <input required th:value="${name}" type="text" name="name" class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme">
+        <input required pattern="^(?!\s*$).+" maxlength="64" th:value="${name}" type="text" name="name" class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme">
 
         <label class="w3-text-theme-dark w3-xlarge">Description: </label>
         <textarea th:text="${description}" rows="10" name="description" class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme"></textarea>

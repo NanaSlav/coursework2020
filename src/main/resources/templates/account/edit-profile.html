@@ -27,10 +27,10 @@
         <div class="w3-col m7">
             <form class="w3-container" th:action="@{/account/edit}" method="post">
                 <label class="w3-text-theme-dark w3-large w3-margin">Username:</label>
-                <input required type="text" th:value="${username}" name="username" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
+                <input required pattern="[a-zA-Z][a-zA-Z0-9]+" maxlength="32" type="text" th:value="${username}" name="username" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
 
                 <label class="w3-text-theme-dark w3-large w3-margin">Email:</label>
-                <input required type="text" th:value="${email}" name="email" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
+                <input required type="email" th:value="${email}" name="email" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
 
                 <label class="w3-text-theme-dark w3-large w3-margin">Bio:</label>
                 <textarea rows="10" name="bio" th:text="${bio}" class="w3-input w3-text-theme w3-large w3-border w3-round w3-hover-border-theme"></textarea>
@@ -44,7 +44,7 @@
                 <input required type="password" name="currentPassword" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
 
                 <label class="w3-text-theme-dark w3-large w3-margin">New password:</label>
-                <input required type="password" name="newPassword" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
+                <input required pattern="/^.{6,}$/" maxlength="32" type="password" name="newPassword" class="w3-input w3-border w3-round w3-margin w3-text-theme w3-xlarge w3-hover-border-theme">
 
                 <button class="w3-btn w3-theme w3-xlarge w3-round-large w3-padding w3-margin" type="submit">Change password</button>
             </form>
