@@ -121,10 +121,21 @@ public class ProjectController {
     @PostMapping("{projectId}/participants/add")
     public String addParticipant(@RequestParam String username,
                                  @PathVariable long projectId,
-                                 Model model) {
+                                 Model model,
+                                 @AuthenticationPrincipal Account currentAccount) {
         Account account = accountService.getAccountByUsername(username);
         if (account != null) {
-            projectService.addParticipant(projectId, account);
+            if (!currentAccount.getUsername().equals(username)) {
+                if (!projectService.addParticipant(projectId, account)) {
+                    messageService.createErrorMessage(model, "Error",
+                            "You have already added this user");
+                    return "project/add-participant";
+                }
+            } else {
+                messageService.createErrorMessage(model, "Error",
+                        "You cant't add yourself");
+                return "project/add-participant";
+            }
         } else {
             messageService.createErrorMessage(model, "No such user",
                     "There is no account with username '" + username + "' .May be you have a mistake");

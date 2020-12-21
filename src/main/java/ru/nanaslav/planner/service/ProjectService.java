@@ -41,12 +41,18 @@ public class ProjectService {
         return project.getId();
     }
 
-    public void addParticipant(long projectId, Account account) {
+    public boolean addParticipant(long projectId, Account account) {
         Project project = projectRepository.findById(projectId).orElseThrow(IllegalStateException::new);
+        for (Participant p : project.getParticipants()) {
+            if (p.getParticipant().getUsername().equals(account.getUsername())) {
+                return false;
+            }
+        }
         Participant participant = new Participant(account, project, Role.PARTICIPANT);
         participantRepository.save(participant);
         project.addParticipant(participant);
         projectRepository.save(project);
+        return true;
     }
 
     public List<Project> getProjectsByAccount(Account account, boolean lazy) {
