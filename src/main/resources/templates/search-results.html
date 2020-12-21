@@ -28,7 +28,12 @@
         <div th:if="${type.equals('project') || type.equals('my-project')}" class="w3-container">
             <a th:href="@{'/projects/' + ${result.getId()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
                 <p th:text="${result.getName()}" class="w3-text-theme-dark w3-large"></p>
-                <p th:text="${result.getDescription()}" class="w3-text-theme"></p>
+                <div th:if="${result.getDescription().length() > 256}">
+                    <p th:text="${result.getDescription().substring(0, 256)} + '...'" class="w3-text-theme-dark"></p>
+                </div>
+                <div th:if="${result.getDescription().length() <= 256}">
+                    <p th:text="${result.getDescription()}" class="w3-text-theme"></p>
+                </div>
             </a>
         </div>
         <div th:if="${type.equals('account')}" class="w3-container">
@@ -37,7 +42,12 @@
         <div th:if="${type.equals('my-task')}">
             <a th:href="@{'/tasks/task/' + ${result.getId()}}" class="w3-text-theme-dark w3-large" style="text-decoration: none;">
                 <p th:text="${result.getName()}" class="w3-text-theme-dark w3-large"></p>
-                <p th:text="${result.getDescription()}" class="w3-text-theme"></p>
+                <div th:if="${result.getDescription().length() > 256}">
+                    <p th:text="${result.getDescription().substring(0, 256)} + '...'" class="w3-text-theme-dark"></p>
+                </div>
+                <div th:if="${result.getDescription().length() <= 256}">
+                    <p th:text="${result.getDescription()}" class="w3-text-theme"></p>
+                </div>
             </a>
         </div>
 

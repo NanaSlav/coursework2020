@@ -14,12 +14,15 @@
         <div class="w3-col m5">
             <div th:if="${avatar != null}" class="w3-margin">
                 <img th:src="'/avatar/' + ${avatar}" class="avatar">
-                <hr>
-                <form th:action="@{'/account/edit/avatar'}" method="post" enctype="multipart/form-data">
-                    <input required type="file" name="avatar" class="w3-input">
-                    <input type="submit" value="add avatar" class="w3-btn w3-theme w3-round-large w3-large">
-                </form>
             </div>
+            <div th:if="${avatar == null}">
+                <img src="/img/avatar.jpg" class="avatar">
+            </div>
+            <hr>
+            <form th:action="@{'/account/edit/avatar'}" method="post" enctype="multipart/form-data">
+                <input required type="file" name="avatar" accept="image/*" class="w3-input">
+                <input type="submit" value="add avatar" class="w3-btn w3-theme w3-round-large w3-large">
+            </form>
         </div>
         <div class="w3-col m7">
             <form class="w3-container" th:action="@{/account/edit}" method="post">
