@@ -47,17 +47,19 @@ public class TaskService {
         List<Attachment> attachments = new ArrayList<>();
         if (!files.isEmpty()) {
             for (MultipartFile file : files) {
-                Attachment attachment = new Attachment();
-                File uploadDir = new File(uploadPath + "/files/");
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
+                if (!Objects.equals(file.getOriginalFilename(), "")) {
+                    Attachment attachment = new Attachment();
+                    File uploadDir = new File(uploadPath + "/files/");
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdir();
+                    }
+                    String filename = UUID.randomUUID().toString() + file.getOriginalFilename();
+                    file.transferTo(new File(uploadPath + "/files/" + filename));
+                    attachment.setName(filename);
+                    attachment.setTask(task);
+                    attachmentRepository.save(attachment);
+                    attachments.add(attachment);
                 }
-                String filename = UUID.randomUUID().toString() + file.getOriginalFilename();
-                file.transferTo(new File(uploadPath + "/files/" + filename));
-                attachment.setName(filename);
-                attachment.setTask(task);
-                attachmentRepository.save(attachment);
-                attachments.add(attachment);
             }
             task.setAttachments(attachments);
             taskRepository.save(task);
